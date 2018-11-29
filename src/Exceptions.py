@@ -2,3 +2,6 @@
 
 class InvalidCycleError(Exception):
     pass
+
+class NotImplementedError(Exception):
+    pass
