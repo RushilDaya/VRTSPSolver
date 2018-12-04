@@ -30,4 +30,4 @@ def select(SEL_F, Chrom, FitnV, GGAP = 1.0, SUBPOP = 1):
 		ChrIx = SEL_F(FitnVSub, NSel)+(irun*Nind)
 		SelCh = numpy.concatenate((SelCh, Chrom[ChrIx:]))	 
 
-return SelCh
+	return SelCh
