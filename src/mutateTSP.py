@@ -5,13 +5,15 @@ import numpy as np
 # mutates the individuals and returns the resulting population.
 
 
-def mutateTSP(MUT_F, OldChrom, MutOpt):
+def mutateTSP(MUT_F, OldChrom, MutOpt, REP='adjacency'):
+	#Rep indicates the type of representation scheme
+	# either adjacency or path
 
 	rows, cols = OldChrom.shape
 	NewChrom = np.copy(OldChrom)
 
 	for rIdx in range(0,rows):
 		if np.random.random_sample()<MutOpt:
-			NewChrom[rIdx] = MUT_F(OldChrom[rIdx].getA1())
+			NewChrom[rIdx] = MUT_F(OldChrom[rIdx].getA1(),REP)
 
 return NewChrom
