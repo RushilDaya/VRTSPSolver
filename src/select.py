@@ -10,7 +10,7 @@ def select(SEL_F, Chrom, FitnV, GGAP = 1.0, SUBPOP = 1):
 	NindCh,Nvar = Chrom.shape
 	NindF,VarF = FitnV.shape
 
-	if (NindCh ~= NindF):
+	if (NindCh != NindF):
 		raise disagree('Chrom and FitnV disagree')
 	if (VarF != 1):
 		raise dimension('FitnV must be a column vector')
