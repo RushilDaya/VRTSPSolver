@@ -5,3 +5,10 @@ class InvalidCycleError(Exception):
 
 class NotImplementedError(Exception):
     pass
+
+class disagree(Exception):
+    pass
+
+class dimension(Exception):
+    pass
+    
