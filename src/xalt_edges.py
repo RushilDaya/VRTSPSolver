@@ -1,5 +1,4 @@
 import random 
-import cross_alternate_edges from cross_alternate_edges
 
 def xalt_edges(oldChromosome, crossoverProbability=1.0):
     # oldChromosome is a matrix 
@@ -28,4 +27,4 @@ def xalt_edges(oldChromosome, crossoverProbability=1.0):
     if len(oldChromosomeList) % 2 !=0:
         newChromosomeList.append(oldChromosomeList[-1])
     
-    return newChromosome
+    return np.matrix(newChromosomeList)
