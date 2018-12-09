@@ -25,13 +25,10 @@ def run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT,
 	# number of individuals of equal fitness needed to stop
 	stopN = int(np.ceil(STOP_PERCENTAGE*NIND))-1
 	# evaluate initial population
-	print(Chrom)
-	print(Dist)
 	ObjV = tspfun.tspfun(Chrom,Dist)
 	best = np.zeros(MAXGEN)
 	# generational loop
 	while (gen<(MAXGEN-1)):
-		print(gen)
 		sObjV = np.sort(ObjV)
 		best[gen] = np.min(ObjV)
 		minimum = best[gen]
@@ -53,14 +50,8 @@ def run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT,
 		#evaluate offspring, call objective function
 		ObjVSel = tspfun.tspfun(SelCh,Dist)
 		#reinsert offspring into population
-		print(Chrom.shape)
-		print(SelCh.shape)
-		print(ObjV.shape)
-		print(ObjVSel.shape)
 		Chrom,ObjV = reins.reins(Chrom,SelCh,1,[1],ObjV,ObjVSel)
 	            
 		Chrom = tsp_ImprovePopulation.tsp_ImprovePopulation(NIND, NVAR, Chrom, LOCALLOOP, Dist)
 		#increment generation counter
 		gen+=1
-
-	print(Chrom)
