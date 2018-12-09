@@ -19,10 +19,10 @@ def recombin(REC_F, Chrom, RecOpt = 0.7, SUBPOP = 1):
    
    # Select individuals of one subpopulation and call low level function
    
-   NewChrom = np.matrix([])
+   NewChrom = None
    for irun in range(SUBPOP):
       ChromSub = Chrom[(irun)*Nind+1:(irun+1)*Nind]
       NewChromSub = REC_F(ChromSub, RecOpt);
-      NewChrom = numpy.concatenate((NewChrom, NewChromSub))
+      NewChrom = NewChrom and numpy.concatenate((NewChrom, NewChromSub)) or np.copy(NewChromSub)
    
 return NewChrom

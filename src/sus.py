@@ -8,7 +8,7 @@ def _getTrailIndex(TrailVal,FitnessSpan):
 
 def sus(FitnV,Nsel):
     # perform stochastic universal sampling
-    (Nind,) = FitnV.shape
+    Nind = len(FitnV)
     cumfit =  np.cumsum(FitnV)
     stride = cumfit[Nind-1]/Nsel
     randV = random.random()*stride
