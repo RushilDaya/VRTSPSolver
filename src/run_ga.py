@@ -11,8 +11,8 @@ def run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT,
 	mean_fits = np.zeros((1,MAXGEN+1))
 	worst = np.zeros((1,MAXGEN+1))
 	Dist = np.zeros((NVAR,NVAR))
-	for i in range(x):
-		for j in range(y):
+	for i in range(len(x)):
+		for j in range(len(y)):
 			Dist[i,j] = sqrt((x[i]-x[j])^2+(y[i]-y[j])^2);
 	# initialize population
 	Chrom = zeros((NIND,NVAR))
