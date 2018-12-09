@@ -4,7 +4,7 @@ import numpy as np
 # multiple populations and calls the low level selection function
 # for the actual selection process.
 
-def select(SEL_F, Chrom, FitnV, GGAP = 1.0, SUBPOP = 1):
+def tspSelect(SEL_F, Chrom, FitnV, GGAP = 1.0, SUBPOP = 1):
 	#Identify the population size (Nind)
 	#Chrom is a matrix
 	#FitnV is an array
@@ -17,7 +17,7 @@ def select(SEL_F, Chrom, FitnV, GGAP = 1.0, SUBPOP = 1):
 		error('GGAP must be a scalar bigger than 0'); end
 	if ((NindCh/SUBPOP) != np.fix(NindCh/SUBPOP)).all():
 		raise disagree('Chrom and SUBPOP disagree')
-	Nind = NindCh/SUBPOP  #Compute number of individuals per subpopulation
+	Nind = NindCh//SUBPOP  #Compute number of individuals per subpopulation
 
 	# Compute number of new individuals (to select)
 	NSel = max(np.floor(Nind*GGAP+0.5),2)
@@ -31,4 +31,4 @@ def select(SEL_F, Chrom, FitnV, GGAP = 1.0, SUBPOP = 1):
 		
 		SelCh = SelCh and np.append(SelCh,Chrom[ChrIx],axis=0) or Chrom[ChrIx]
 			
-return SelCh
+	return np.matrix(SelCh)

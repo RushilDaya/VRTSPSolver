@@ -15,7 +15,7 @@ def recombin(REC_F, Chrom, RecOpt = 0.7, SUBPOP = 1):
 
    if ((Nind/SUBPOP) != np.fix(Nind/SUBPOP)).all():
       raise disagree('Chrom and SUBPOP disagree')
-   Nind = Nind/SUBPOP  #Compute number of individuals per subpopulation
+   Nind = Nind//SUBPOP  #Compute number of individuals per subpopulation
    
    # Select individuals of one subpopulation and call low level function
    
@@ -25,4 +25,4 @@ def recombin(REC_F, Chrom, RecOpt = 0.7, SUBPOP = 1):
       NewChromSub = REC_F(ChromSub, RecOpt);
       NewChrom = NewChrom and numpy.concatenate((NewChrom, NewChromSub)) or np.copy(NewChromSub)
    
-return NewChrom
+   return np.matrix(NewChrom)

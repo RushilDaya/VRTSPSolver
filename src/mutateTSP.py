@@ -16,4 +16,4 @@ def mutateTSP(MUT_F, OldChrom, MutOpt, REP='adjacency'):
 		if np.random.random_sample()<MutOpt:
 			NewChrom[rIdx] = MUT_F(OldChrom[rIdx].getA1(),REP)
 
-return NewChrom
+	return np.matrix(NewChrom)

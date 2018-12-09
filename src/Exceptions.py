@@ -1,14 +1,16 @@
 # a complete list of all custom exceptions
 
 class InvalidCycleError(Exception):
-    pass
+	pass
 
 class NotImplementedError(Exception):
-    pass
+	pass
 
 class disagree(Exception):
-    pass
+	pass
 
 class dimension(Exception):
-    pass
-    
+	pass
+
+class range(Exception):
+	pass

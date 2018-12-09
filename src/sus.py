@@ -10,7 +10,7 @@ def sus(FitnV,Nsel):
     # perform stochastic universal sampling
     Nind = len(FitnV)
     cumfit =  np.cumsum(FitnV)
-    stride = cumfit[Nind-1]/Nsel
+    stride = cumfit[Nind-1]//Nsel
     randV = random.random()*stride
     
     trails = np.linspace(0, stride*(Nsel-1), num=Nsel) + randV
