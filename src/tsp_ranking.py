@@ -1,6 +1,6 @@
 # a rank based fitness assignment
 import numpy as np
-from Exceptions import NotImplementedError
+from tsp_exceptions import NotImplementedError
 
 def _linearRankFunction(index, selectionPressure, populationSize):
     return 2- selectionPressure + 2*index*(selectionPressure -1)/(populationSize-1)
@@ -38,7 +38,7 @@ def _generateRankingArray(populationSize, selectionPressure, rankingType):
     else:
         raise ValueError('unknown ranking type provided')
 
-def ranking(fitnessVector, rankingOptions=[2,'linear'], subPopulations=1):
+def tsp_ranking(fitnessVector, rankingOptions=[2,'linear'], subPopulations=1):
     # fitnessVector is a numpy array of fitness values
     # rankingOptions [x,y] -> x is the selection pressure in range [1:2]
     #                      -> y is the ranking type enum ('linear', 'non_linear')

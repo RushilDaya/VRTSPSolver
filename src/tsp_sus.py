@@ -3,10 +3,9 @@ import random
 
 
 def _getTrailIndex(TrailVal,FitnessSpan):
-    
     return len([ True for item in FitnessSpan if item < TrailVal ])
 
-def sus(FitnV,Nsel):
+def tsp_sus(FitnV,Nsel):
     # perform stochastic universal sampling
     Nind = len(FitnV)
     cumfit =  np.cumsum(FitnV)

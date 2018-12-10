@@ -3,9 +3,9 @@
 # returns a numpy array in the path rep.
 
 import numpy as np
-from Exceptions import InvalidCycleError
+from tsp_exceptions import InvalidCycleError
 
-def adj2path(adjacencyArray, subCycleDetection=False):
+def tsp_adj2path(adjacencyArray, subCycleDetection=False):
     # note that python arrays are zero indexed the TSP representations
     # assume one indexed nodes.
 

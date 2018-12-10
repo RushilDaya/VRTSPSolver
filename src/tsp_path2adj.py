@@ -2,10 +2,10 @@
 # returns a numpy array in the adjacency rep.
 
 import numpy as np
-from Exceptions import InvalidCycleError
+from tsp_exceptions import InvalidCycleError
 
 
-def path2adj(pathArray, subCycleDetection=False):
+def tsp_path2adj(pathArray, subCycleDetection=False):
     # note that python arrays are zero indexed the TSP representations
     # assume one indexed nodes.
 

@@ -1,8 +1,8 @@
 import random 
 import numpy as np
-import cross_alternate_edges
+import tsp_crossAlternateEdges
 
-def xalt_edges(oldChromosome, crossoverProbability=1.0):
+def tsp_xaltEdges(oldChromosome, crossoverProbability=1.0):
     # oldChromosome is a matrix 
     # crossoverProbability is a float scalar in range [0,1]
     # returns a new chromosome matrix
@@ -17,8 +17,8 @@ def xalt_edges(oldChromosome, crossoverProbability=1.0):
     
     for i in range(0,rows,2):
         if random.random() < crossoverProbability:
-            newChild1 = cross_alternate_edges.cross_alternate_edges([oldChromosomeList[i],oldChromosomeList[i+1]])
-            newChild2 = cross_alternate_edges.cross_alternate_edges([oldChromosomeList[i+1],oldChromosomeList[i]])
+            newChild1 = tsp_crossAlternateEdges.tsp_crossAlternateEdges([oldChromosomeList[i],oldChromosomeList[i+1]])
+            newChild2 = tsp_crossAlternateEdges.tsp_crossAlternateEdges([oldChromosomeList[i+1],oldChromosomeList[i]])
         else:
             newChild1 = oldChromosomeList[i]
             newChild2 = oldChromosomeList[i+1]

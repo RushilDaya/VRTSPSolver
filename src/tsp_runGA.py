@@ -1,10 +1,9 @@
-import sus, inversion
 import random
-import path2adj, tspfun, ranking, tspSelect, reins, tspfun, recombin, mutateTSP, tsp_ImprovePopulation
+import tsp_path2adj, tsp_fun, tsp_ranking, tsp_select, tsp_reins, tsp_sus, tsp_inversion, tsp_recombin, tsp_mutate, tsp_improvePopulation
 import numpy as np
 
 
-def run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP):
+def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP):
 
 	GGAP = (1 - ELITIST)
 	mean_fits = np.zeros(MAXGEN)
@@ -19,13 +18,13 @@ def run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT,
 	for row in range(NIND):
 		tmp = popList[:]
 		random.shuffle(tmp)
-		Chrom[row] = path2adj.path2adj(tmp[:])
+		Chrom[row] = tsp_path2adj.tsp_path2adj(tmp[:])
 		#Chrom[row]=random.shuffle(popList)
 	gen = 0
 	# number of individuals of equal fitness needed to stop
 	stopN = int(np.ceil(STOP_PERCENTAGE*NIND))-1
 	# evaluate initial population
-	ObjV = tspfun.tspfun(Chrom,Dist)
+	ObjV = tsp_fun.tsp_fun(Chrom,Dist)
 	best = np.zeros(MAXGEN)
 	# generational loop
 	while (gen<(MAXGEN-1)):
@@ -41,17 +40,17 @@ def run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT,
 			break
 
 		#assign fitness values to entire population
-		FitnV = ranking.ranking(ObjV)
+		FitnV = tsp_ranking.tsp_ranking(ObjV)
 		#select individuals for breeding
-		SelCh = tspSelect.tspSelect(sus.sus, Chrom, FitnV, GGAP)
+		SelCh = tsp_select.tsp_select(tsp_sus.tsp_sus, Chrom, FitnV, GGAP)
 		#recombine individuals (crossover)
-		SelCh = recombin.recombin(CROSSOVER,SelCh,PR_CROSS)
-		SelCh = mutateTSP.mutateTSP(inversion.inversion,SelCh,PR_MUT)
+		SelCh = tsp_recombin.tsp_recombin(CROSSOVER,SelCh,PR_CROSS)
+		SelCh = tsp_mutate.tsp_mutate(tsp_inversion.tsp_inversion,SelCh,PR_MUT)
 		#evaluate offspring, call objective function
-		ObjVSel = tspfun.tspfun(SelCh,Dist)
+		ObjVSel = tsp_fun.tsp_fun(SelCh,Dist)
 		#reinsert offspring into population
-		Chrom,ObjV = reins.reins(Chrom,SelCh,1,[1],ObjV,ObjVSel)
+		Chrom,ObjV = tsp_reins.tsp_reins(Chrom,SelCh,1,[1],ObjV,ObjVSel)
 	            
-		Chrom = tsp_ImprovePopulation.tsp_ImprovePopulation(NIND, NVAR, Chrom, LOCALLOOP, Dist)
+		Chrom = tsp_improvePopulation.tsp_improvePopulation(NIND, NVAR, Chrom, LOCALLOOP, Dist)
 		#increment generation counter
 		gen+=1

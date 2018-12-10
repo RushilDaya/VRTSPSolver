@@ -5,7 +5,7 @@ import numpy as np
 # multiple populations and calls the low-level recombination function
 # for the actual recombination process.
 
-def recombin(REC_F, Chrom, RecOpt = 0.7, SUBPOP = 1):
+def tsp_recombin(REC_F, Chrom, RecOpt = 0.7, SUBPOP = 1):
 
    if (RecOpt < 0 or RecOpt > 1):
       raise outOfRange("RecOpt must be a scalar in [0, 1]")

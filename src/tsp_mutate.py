@@ -5,7 +5,7 @@ import numpy as np
 # mutates the individuals and returns the resulting population.
 
 
-def mutateTSP(MUT_F, OldChrom, MutOpt, REP='adjacency'):
+def tsp_mutate(MUT_F, OldChrom, MutOpt, REP='adjacency'):
 	#Rep indicates the type of representation scheme
 	# either adjacency or path
 

@@ -22,7 +22,7 @@ def _deterministicNewNode(parents,parentsReversed,parentIndex,walkingIndex,direc
     return newNode
             
 
-def cross_alternate_edges(parents):
+def tsp_crossAlternateEdges(parents):
     # parents is a list with 2 chromosomes
     # performs the actual crossover assuming
     # adjacency representation

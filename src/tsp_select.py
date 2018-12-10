@@ -4,7 +4,7 @@ import numpy as np
 # multiple populations and calls the low level selection function
 # for the actual selection process.
 
-def tspSelect(SEL_F, Chrom, FitnV, GGAP = 1.0, SUBPOP = 1):
+def tsp_select(SEL_F, Chrom, FitnV, GGAP = 1.0, SUBPOP = 1):
 	#Identify the population size (Nind)
 	#Chrom is a matrix
 	#FitnV is an array

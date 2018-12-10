@@ -1,16 +1,16 @@
 # low level operator to perform inversion mutation
 
-import numpy as np
 import random 
-from path2adj import path2adj
-from adj2path import adj2path
+import tsp_path2adj
+import tsp_adj2path
+import numpy as np
 
-def inversion(oldChrome,REP='adjacency'):
+def tsp_inversion(oldChrome,REP='adjacency'):
     # old Chrome is an vector defining a single chromosome
     if REP == 'path':
         tempChrome = oldChrome
     elif REP == 'adjacency':
-        tempChrome = adj2path(oldChrome)
+        tempChrome = tsp_adj2path.tsp_adj2path(oldChrome)
     else:
         raise ValueError('Invalid representation provided')
 
@@ -26,4 +26,4 @@ def inversion(oldChrome,REP='adjacency'):
     if REP == 'path':
         return tempChrome
     if REP == 'adjacency':
-        return path2adj(tempChrome)
+        return tsp_path2adj.tsp_path2adj(tempChrome)

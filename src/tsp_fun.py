@@ -11,6 +11,6 @@ def _computeFitness(individual, distanceMatrix):
     
     return sum(distances)
 
-def tspfun(phenotype, distanceMatrix):
+def tsp_fun(phenotype, distanceMatrix):
     fitnessVector = [_computeFitness(individual,distanceMatrix) for individual in phenotype ]
     return np.array(fitnessVector)
