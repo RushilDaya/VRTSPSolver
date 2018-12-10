@@ -1,9 +1,9 @@
-import sus, inversion
 import random
-import path2adj, tspfun, ranking, tspSelect, reins, tspfun, recombin, mutateTSP, tsp_ImprovePopulation
+import tsp_path2adj, tsp_fun, tsp_ranking, tsp_select, tsp_reins, tsp_sus, tsp_inversion, tsp_recombin, tsp_mutate, tsp_improvePopulation
 import numpy as np
 
-def run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP):
+
+def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP):
 
 	runData = {
 				'PARAMETERS':{
@@ -30,14 +30,14 @@ def run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT,
 	for row in range(NIND):
 		tmp = popList[:]
 		random.shuffle(tmp)
-		Chrom[row] = path2adj.path2adj(tmp[:])
+		Chrom[row] = tsp_path2adj.tsp_path2adj(tmp[:])
 		#Chrom[row]=random.shuffle(popList)
 	runData['INITIAL_CHROMOSOME']=Chrom
 	gen = 0
 	# number of individuals of equal fitness needed to stop
 	stopN = int(np.ceil(STOP_PERCENTAGE*NIND))-1
 	# evaluate initial population
-	ObjV = tspfun.tspfun(Chrom,Dist)
+	ObjV = tsp_fun.tsp_fun(Chrom,Dist)
 	best = np.zeros(MAXGEN)
 	# generational loop
 	runData['GENERATIONAL_DATA'] = {}
@@ -55,24 +55,23 @@ def run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT,
 			break
 		runData['GENERATIONAL_DATA'][gen]['START_GENERATION_CHROMOSOMES'] = Chrom
 		#assign fitness values to entire population
-		FitnV = ranking.ranking(ObjV)
+		FitnV = tsp_ranking.tsp_ranking(ObjV) 
 		runData['GENERATIONAL_DATA'][gen]['STARTING_FITNESS'] = ObjV
 		#select individuals for breeding
-		SelCh = tspSelect.tspSelect(sus.sus, Chrom, FitnV, GGAP)
+		SelCh = tsp_select.tsp_select(sus.sus, Chrom, FitnV, GGAP)
 		runData['GENERATIONAL_DATA'][gen]['SELECTED_CHROMOSOMES'] = SelCh
 		#recombine individuals (crossover)
-		SelCh = recombin.recombin(CROSSOVER,SelCh,PR_CROSS)
+		SelCh = tsp_recombin.tsp_recombin(CROSSOVER,SelCh,PR_CROSS)
 		runData['GENERATIONAL_DATA'][gen]['RECOMBINED_CHROMOSOMES'] = SelCh
-		SelCh = mutateTSP.mutateTSP(inversion.inversion,SelCh,PR_MUT)
+		SelCh = tsp_mutateTSP.tsp_mutateTSP(inversion.inversion,SelCh,PR_MUT)
 		runData['GENERATIONAL_DATA'][gen]['MUTATED_CHROMOSOMES'] = SelCh
 		#evaluate offspring, call objective function
-		ObjVSel = tspfun.tspfun(SelCh,Dist)
+		ObjVSel = tsp_fun.tsp_fun(SelCh,Dist)
 		#reinsert offspring into population
-		Chrom,ObjV = reins.reins(Chrom,SelCh,1,[1],ObjV,ObjVSel)
+		Chrom,ObjV = tsp_reins.tsp_reins(Chrom,SelCh,1,[1],ObjV,ObjVSel)
 		runData['GENERATIONAL_DATA'][gen]['REINSERTED_CHROMOSOMES'] = Chrom
 	            
 	#	Chrom = tsp_ImprovePopulation.tsp_ImprovePopulation(NIND, NVAR, Chrom, LOCALLOOP, Dist)
-	#	logger.info('RUN=%d|GENERATION=%d|END_GENERATION_CHROMOSOMES=%s',RUN_NUMBER,gen,Chrom)
 		#increment generation counter
 		gen+=1
 
