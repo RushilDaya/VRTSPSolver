@@ -1,4 +1,5 @@
 config1:
+ REPRESENTATION : REP_ADJACENCY
  NIND : 50
  MAXGEN : 100
  ELITIST : 0.05
@@ -7,8 +8,11 @@ config1:
  PR_MUT : 0.05
  LOCALLOOP : 0
  CROSSOVER : tsp_xaltEdges
+ MUTATION : tsp_inversion
+ SELECTION : tsp_sus
 
 config2:
+ REPRESENTATION : REP_ADJACENCY
  NIND : 50
  MAXGEN : 100
  ELITIST : 0.05
@@ -17,3 +21,5 @@ config2:
  PR_MUT : 0.05
  LOCALLOOP : 0
  CROSSOVER : tsp_xaltEdges
+ MUTATION : tsp_inversion
+ SELECTION : tsp_sus

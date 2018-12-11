@@ -1,6 +1,12 @@
 import numpy as np
 import random
 
+def mapping(REP):
+	if(REP=='REP_ADJACENCY'):
+		function_mappings = {'tsp_sus': tsp_sus,}
+		return function_mappings
+	else:
+		return None
 
 def _getTrailIndex(TrailVal,FitnessSpan):
 	return len([ True for item in FitnessSpan if item < TrailVal ])

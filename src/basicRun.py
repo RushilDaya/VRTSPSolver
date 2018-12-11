@@ -4,8 +4,8 @@
 
 import pickle
 import numpy as np
+import tsp_crossoverMethods
 from tsp_runGA import tsp_runGA
-from tsp_xaltEdges import tsp_xaltEdges
 
 # every 
 
@@ -17,7 +17,7 @@ def load_data(fileName):
 
 def load_configurations(fileName):
     # dummy function for now
-    return [{'NAME':'conf1','NIND':50,'MAXGEN':100,'ELITIST':0.05,'STOP_PERCENTAGE':1,'PR_CROSS':0.95,'PR_MUT':0.05,'LOCALLOOP':None,'CROSSOVER':tsp_xaltEdges}]
+    return [{'NAME':'conf1','NIND':50,'MAXGEN':100,'ELITIST':0.05,'STOP_PERCENTAGE':1,'PR_CROSS':0.95,'PR_MUT':0.05,'LOCALLOOP':None,'CROSSOVER':tsp_crossoverMethods.tsp_xaltEdges,'MUTATION':tsp_mutationMethods.tsp_inversion,'SELECTION':tsp_selectionMethods.tsp_sus}]
 
 def runConfiguration(config,x,y, dataFile ,runsNum):
     print(config)
@@ -38,7 +38,7 @@ def runConfiguration(config,x,y, dataFile ,runsNum):
     for i in range(runsNum):
         runData = tsp_runGA(x,y, config['NIND'], config['MAXGEN'], len(x),
                          config['ELITIST'], config['STOP_PERCENTAGE'], config['PR_CROSS'],
-                         config['PR_MUT'], config['CROSSOVER'], config['LOCALLOOP'])
+                         config['PR_MUT'], config['CROSSOVER'], config['MUTATION'], config['SELECTION'], config['LOCALLOOP'])
         runs.append(runData)
 
     configObj['RUNS']=runs

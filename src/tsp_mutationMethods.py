@@ -1,9 +1,12 @@
-# low level operator to perform inversion mutation
-
 import random 
 import tsp_path2adj
 import tsp_adj2path
 import numpy as np
+
+# low level operator to perform inversion mutation
+def mapping():
+	function_mappings = {'tsp_inversion': tsp_inversion,}
+	return function_mappings
 
 def tsp_inversion(oldChrome,REP='adjacency'):
 	# old Chrome is an vector defining a single chromosome

@@ -1,9 +1,9 @@
 import random
-import tsp_path2adj, tsp_fun, tsp_ranking, tsp_select, tsp_reins, tsp_sus, tsp_inversion, tsp_recombin, tsp_mutate, tsp_improvePopulation
+import tsp_path2adj, tsp_fun, tsp_ranking, tsp_select, tsp_reins, tsp_selectionMethods, tsp_mutationMethods, tsp_recombin, tsp_mutate, tsp_improvePopulation
 import numpy as np
 
 
-def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP):
+def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, LOCALLOOP):
 
 	runData = {
 				'NODES':{
@@ -62,12 +62,12 @@ def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_M
 		FitnV = tsp_ranking.tsp_ranking(ObjV) 
 		runData['GENERATIONAL_DATA'][gen]['STARTING_FITNESS'] = ObjV
 		#select individuals for breeding
-		SelCh = tsp_select.tsp_select(tsp_sus.tsp_sus, Chrom, FitnV, GGAP)
+		SelCh = tsp_select.tsp_select(SELECTION, Chrom, FitnV, GGAP)
 		runData['GENERATIONAL_DATA'][gen]['SELECTED_CHROMOSOMES'] = SelCh
 		#recombine individuals (crossover)
 		SelCh = tsp_recombin.tsp_recombin(CROSSOVER,SelCh,PR_CROSS)
 		runData['GENERATIONAL_DATA'][gen]['RECOMBINED_CHROMOSOMES'] = SelCh
-		SelCh = tsp_mutate.tsp_mutate(tsp_inversion.tsp_inversion,SelCh,PR_MUT)
+		SelCh = tsp_mutate.tsp_mutate(MUTATION,SelCh,PR_MUT)
 		runData['GENERATIONAL_DATA'][gen]['MUTATED_CHROMOSOMES'] = SelCh
 		#evaluate offspring, call objective function
 		ObjVSel = tsp_fun.tsp_fun(SelCh,Dist)

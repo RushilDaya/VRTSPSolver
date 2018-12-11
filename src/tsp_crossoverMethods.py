@@ -2,6 +2,15 @@ import random
 import numpy as np
 import tsp_crossAlternateEdges
 
+def mapping(REP):
+	if(REP=='REP_ADJACENCY'):
+		function_mappings = {'tsp_xaltEdges': tsp_xaltEdges,}
+		return function_mappings
+	else:
+		return None
+
+
+
 def tsp_xaltEdges(oldChromosome, crossoverProbability=1.0):
 	# oldChromosome is a matrix 
 	# crossoverProbability is a float scalar in range [0,1]
