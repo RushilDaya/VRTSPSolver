@@ -48,7 +48,7 @@ def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_M
 		minimum = best[gen]
 		mean_fits[gen] = np.mean(ObjV)
 		worst[gen] = np.max(ObjV)
-	            
+		
 		#visualizeTSP(x,y,adj2path(Chrom(t,:)), minimum, ah1, gen, best, mean_fits, worst, ah2, ObjV, NIND, ah3);
 
 		if ((sObjV[stopN]-sObjV[0]) <= (10 ** -5)):
