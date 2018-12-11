@@ -58,12 +58,12 @@ def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_M
 		FitnV = tsp_ranking.tsp_ranking(ObjV) 
 		runData['GENERATIONAL_DATA'][gen]['STARTING_FITNESS'] = ObjV
 		#select individuals for breeding
-		SelCh = tsp_select.tsp_select(sus.sus, Chrom, FitnV, GGAP)
+		SelCh = tsp_select.tsp_select(tsp_sus.tsp_sus, Chrom, FitnV, GGAP)
 		runData['GENERATIONAL_DATA'][gen]['SELECTED_CHROMOSOMES'] = SelCh
 		#recombine individuals (crossover)
 		SelCh = tsp_recombin.tsp_recombin(CROSSOVER,SelCh,PR_CROSS)
 		runData['GENERATIONAL_DATA'][gen]['RECOMBINED_CHROMOSOMES'] = SelCh
-		SelCh = tsp_mutateTSP.tsp_mutateTSP(inversion.inversion,SelCh,PR_MUT)
+		SelCh = tsp_mutate.tsp_mutate(tsp_inversion.tsp_inversion,SelCh,PR_MUT)
 		runData['GENERATIONAL_DATA'][gen]['MUTATED_CHROMOSOMES'] = SelCh
 		#evaluate offspring, call objective function
 		ObjVSel = tsp_fun.tsp_fun(SelCh,Dist)
