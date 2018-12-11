@@ -6,6 +6,10 @@ import numpy as np
 def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP):
 
 	runData = {
+				'NODES':{
+					'X':x,
+					'Y':y
+				},
 				'PARAMETERS':{
 					'NIND':NIND,
 					'MAXGEN':MAXGEN,
