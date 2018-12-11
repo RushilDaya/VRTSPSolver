@@ -1,6 +1,14 @@
 # VRTSPSolver
 MoAI TSP Genetic Algorithm Project
 
+## Immediate Concerns
+### Victor
+1. Stop Criteria 
+2. mutation methods:{ Insertion and exchange mutation }
+### Rushil
+1. Chunk crossover
+
+
 ###Plan For Genetic Algorithms Project.
 1. Get familiar with the genetic algorithm toolbox and the tsp code, run basic experiments, no need to record results at this stage. (2 hours).
 2. Setup a pipeline for automating the recording of results and changing parameters, this will save a lot of time if we need to run ~ 50 tests for each configuration and make gradual adjustments to ~10 parameters (5 hours).
