@@ -53,7 +53,7 @@ def main():
     DATA_NAME = 'customData.txt'
     configList = load_configurations('config.yaml')
     x,y = load_data(DATA_NAME)
-    runsPerConfig = 5
+    runsPerConfig = 10
     [ runConfiguration(configuration, x,y, DATA_NAME, runsPerConfig)  for configuration in configList] 
     
 

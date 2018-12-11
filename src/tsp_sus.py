@@ -9,9 +9,8 @@ def tsp_sus(FitnV,Nsel):
 	# perform stochastic universal sampling
 	Nind = len(FitnV)
 	cumfit =  np.cumsum(FitnV)
-	stride = cumfit[Nind-1]//Nsel
+	stride = cumfit[Nind-1]/Nsel
 	randV = random.random()*stride
-	
 	trails = np.linspace(0, stride*(Nsel-1), num=Nsel) + randV
 	selectedIndices = [_getTrailIndex(item, cumfit) for item in trails]
 	np.random.shuffle(selectedIndices) # in-place function
