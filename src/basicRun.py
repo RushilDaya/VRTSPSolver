@@ -17,7 +17,7 @@ def load_data(fileName):
 
 def load_configurations(fileName):
     # dummy function for now
-    return [{'NAME':'conf1','NIND':50,'MAXGEN':100,'ELITIST':0.0,'STOP_PERCENTAGE':1,'PR_CROSS':0.95,'PR_MUT':0.05,'LOCALLOOP':None,'CROSSOVER':tsp_xaltEdges}]
+    return [{'NAME':'conf1','NIND':50,'MAXGEN':100,'ELITIST':0.05,'STOP_PERCENTAGE':1,'PR_CROSS':0.95,'PR_MUT':0.05,'LOCALLOOP':None,'CROSSOVER':tsp_xaltEdges}]
 
 def runConfiguration(config,x,y, dataFile ,runsNum):
     print(config)
