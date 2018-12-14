@@ -35,7 +35,8 @@ def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_M
 		tmp = popList[:]
 		random.shuffle(tmp)
 		Chrom[row] = tsp_path2adj.tsp_path2adj(tmp[:])
-		#Chrom[row]=random.shuffle(popList)
+		#Chrom[row] = random.shuffle(popList)
+
 	runData['INITIAL_CHROMOSOME']=Chrom
 	# number of individuals of equal fitness needed to stop
 	stopN = int(np.ceil(STOP_PERCENTAGE*NIND))-1
@@ -47,9 +48,8 @@ def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_M
 	tsp_stopCriteria.setThreshold((10**-5))
 	# generational loop
 	# runData['GENERATIONAL_DATA'] = {}
-	# runData['BREAK'] = MAXGEN
+	runData['BREAK'] = MAXGEN
 	for gen in range(MAXGEN):
-	#while (gen<(MAXGEN-1)):
 		sObjV = np.sort(ObjV)
 		best[gen] = np.min(ObjV)
 		minimum = best[gen]
@@ -57,13 +57,14 @@ def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_M
 		worst[gen] = np.max(ObjV)
 
 		#visualizeTSP(x,y,adj2path(Chrom(t,:)), minimum, ah1, gen, best, mean_fits, worst, ah2, ObjV, NIND, ah3);
+		
 		scDepth = 20
 		scArgs = [best[:(gen+1)],scDepth,sObjV,stopN]
 		stopCriteria = STOPCRITERIA(scArgs)
 		if (stopCriteria):
-		#if(sObjV[stopN]-sObjV[0]<(10**-5)):
 			runData['BREAK'] = gen
 			break
+		
 		# runData['GENERATIONAL_DATA'][gen]={}
 		# runData['GENERATIONAL_DATA'][gen]['START_GENERATION_CHROMOSOMES'] = Chrom
 		#assign fitness values to entire population
@@ -83,9 +84,8 @@ def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_M
 		Chrom,ObjV = tsp_reins.tsp_reins(Chrom,SelCh,1,[1],ObjV,ObjVSel)
 		# runData['GENERATIONAL_DATA'][gen]['REINSERTED_CHROMOSOMES'] = Chrom
 	            
-	#	Chrom = tsp_ImprovePopulation.tsp_ImprovePopulation(NIND, NVAR, Chrom, LOCALLOOP, Dist)
-		#increment generation counter
-		#gen+=1
+		# Chrom = tsp_ImprovePopulation.tsp_ImprovePopulation(NIND, NVAR, Chrom, LOCALLOOP, Dist)
+
 
 	runData['RESULTS'] = {
 		'BEST':best,
