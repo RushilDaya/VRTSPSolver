@@ -24,7 +24,7 @@ def generic_runingMean(scArgs):
 
 def runingMean(bestList, depth):
 	res = (len(bestList)<depth) and float('Inf') or abs(bestList[-depth:][-1]-np.mean(bestList[-depth:]))
-	return res<THRESHOLD
+	return res<(THRESHOLD*0.001)
 
 
 def generic_kImprovement(scArgs):
@@ -51,7 +51,7 @@ def generic_stdDev(scArgs):
 
 def stdDev(sObjV):
 	res = np.std(sObjV)
-	return res<THRESHOLD
+	return res<(THRESHOLD*10)
 
 
 def generic_phi(scArgs):
