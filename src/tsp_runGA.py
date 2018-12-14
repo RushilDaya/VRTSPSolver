@@ -1,9 +1,9 @@
 import random
-import tsp_path2adj, tsp_fun, tsp_ranking, tsp_select, tsp_reins, tsp_selectionMethods, tsp_mutationMethods, tsp_recombin, tsp_mutate, tsp_improvePopulation
+import tsp_path2adj, tsp_stopCriteria, tsp_fun, tsp_ranking, tsp_select, tsp_reins, tsp_selectionMethods, tsp_mutationMethods, tsp_recombin, tsp_mutate, tsp_improvePopulation
 import numpy as np
 
 
-def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, LOCALLOOP):
+def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, STOPCRITERIA, LOCALLOOP):
 
 	runData = {
 				'NODES':{
@@ -43,19 +43,26 @@ def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_M
 	# evaluate initial population
 	ObjV = tsp_fun.tsp_fun(Chrom,Dist)
 	best = np.zeros(MAXGEN)
+	
+	# set Threshold
+	tsp_stopCriteria.setThreshold((10**-5))
 	# generational loop
 	runData['GENERATIONAL_DATA'] = {}
-	while (gen<(MAXGEN-1)):
+	for gen in range(MAXGEN):
+	#while (gen<(MAXGEN-1)):
 		runData['GENERATIONAL_DATA'][gen]={}
 		sObjV = np.sort(ObjV)
 		best[gen] = np.min(ObjV)
 		minimum = best[gen]
 		mean_fits[gen] = np.mean(ObjV)
 		worst[gen] = np.max(ObjV)
-		
-		#visualizeTSP(x,y,adj2path(Chrom(t,:)), minimum, ah1, gen, best, mean_fits, worst, ah2, ObjV, NIND, ah3);
 
-		if ((sObjV[stopN]-sObjV[0]) <= (10 ** -5)):
+		#visualizeTSP(x,y,adj2path(Chrom(t,:)), minimum, ah1, gen, best, mean_fits, worst, ah2, ObjV, NIND, ah3);
+		scDepth = 5
+		scArgs = [best[:(gen+1)],scDepth,sObjV,stopN]
+		stopCriteria = STOPCRITERIA(scArgs)
+		if (stopCriteria):
+		#if(sObjV[stopN]-sObjV[0]<(10**-5)):
 			break
 		runData['GENERATIONAL_DATA'][gen]['START_GENERATION_CHROMOSOMES'] = Chrom
 		#assign fitness values to entire population
@@ -77,7 +84,7 @@ def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_M
 	            
 	#	Chrom = tsp_ImprovePopulation.tsp_ImprovePopulation(NIND, NVAR, Chrom, LOCALLOOP, Dist)
 		#increment generation counter
-		gen+=1
+		#gen+=1
 
 	runData['RESULTS'] = {
 		'BEST':best,
