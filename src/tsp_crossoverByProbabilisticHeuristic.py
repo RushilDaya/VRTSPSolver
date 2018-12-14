@@ -35,13 +35,14 @@ def _probChoice(distances):
     # -------
 
     distanceArray = np.array(distances)
-    ranking = np.argsort(-distanceArray)
-    preferenceVector = np.cumsum(ranking)
+    ranking = np.argsort(np.argsort(-distanceArray)) + 1 # having a zero item doesn't correctly work in the cumsum
+    preferenceVector = np.cumsum(ranking) 
     maximum = preferenceVector[-1]
     randomSelection = random.random()*maximum
+    
     for i in range(len(preferenceVector)):
         if randomSelection < preferenceVector[i]:
-            return distanceArray[ranking[i]]
+            return distanceArray[i]
     
     raise RuntimeError('function failed to determine an appropriate value')
 
