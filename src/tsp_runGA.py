@@ -6,20 +6,20 @@ import numpy as np
 def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, STOPCRITERIA, LOCALLOOP):
 
 	runData = {
-				'NODES':{
-					'X':x,
-					'Y':y
-				},
-				'PARAMETERS':{
-					'NIND':NIND,
-					'MAXGEN':MAXGEN,
-					'NVAR':NVAR,
-					'ELITIST':ELITIST,
-					'STOP_PERCENTAGE':STOP_PERCENTAGE,
-					'PR_CROSS':PR_CROSS,
-					'PR_MUT':PR_MUT,
-					'LOCALLOOP':LOCALLOOP
-			  	}			
+				# 'NODES':{
+				# 	'X':x,
+				# 	'Y':y
+				# },
+				# 'PARAMETERS':{
+				# 	'NIND':NIND,
+				# 	'MAXGEN':MAXGEN,
+				# 	'NVAR':NVAR,
+				# 	'ELITIST':ELITIST,
+				# 	'STOP_PERCENTAGE':STOP_PERCENTAGE,
+				# 	'PR_CROSS':PR_CROSS,
+				# 	'PR_MUT':PR_MUT,
+				# 	'LOCALLOOP':LOCALLOOP
+			 #  	}			
 			  }
 	GGAP = (1 - ELITIST)
 	mean_fits = np.zeros(MAXGEN)
@@ -46,8 +46,8 @@ def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_M
 	# set Threshold
 	tsp_stopCriteria.setThreshold((10**-5))
 	# generational loop
-	runData['GENERATIONAL_DATA'] = {}
-	runData['BREAK'] = MAXGEN
+	# runData['GENERATIONAL_DATA'] = {}
+	# runData['BREAK'] = MAXGEN
 	for gen in range(MAXGEN):
 	#while (gen<(MAXGEN-1)):
 		sObjV = np.sort(ObjV)
@@ -64,24 +64,24 @@ def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_M
 		#if(sObjV[stopN]-sObjV[0]<(10**-5)):
 			runData['BREAK'] = gen
 			break
-		runData['GENERATIONAL_DATA'][gen]={}
-		runData['GENERATIONAL_DATA'][gen]['START_GENERATION_CHROMOSOMES'] = Chrom
+		# runData['GENERATIONAL_DATA'][gen]={}
+		# runData['GENERATIONAL_DATA'][gen]['START_GENERATION_CHROMOSOMES'] = Chrom
 		#assign fitness values to entire population
 		FitnV = tsp_ranking.tsp_ranking(ObjV) 
-		runData['GENERATIONAL_DATA'][gen]['STARTING_FITNESS'] = ObjV
+		# runData['GENERATIONAL_DATA'][gen]['STARTING_FITNESS'] = ObjV
 		#select individuals for breeding
 		SelCh = tsp_select.tsp_select(SELECTION, Chrom, FitnV, GGAP)
-		runData['GENERATIONAL_DATA'][gen]['SELECTED_CHROMOSOMES'] = SelCh
+		# runData['GENERATIONAL_DATA'][gen]['SELECTED_CHROMOSOMES'] = SelCh
 		#recombine individuals (crossover)
 		SelCh = tsp_recombin.tsp_recombin(CROSSOVER,SelCh,PR_CROSS)
-		runData['GENERATIONAL_DATA'][gen]['RECOMBINED_CHROMOSOMES'] = SelCh
+		# runData['GENERATIONAL_DATA'][gen]['RECOMBINED_CHROMOSOMES'] = SelCh
 		SelCh = tsp_mutate.tsp_mutate(MUTATION,SelCh,PR_MUT)
-		runData['GENERATIONAL_DATA'][gen]['MUTATED_CHROMOSOMES'] = SelCh
+		# runData['GENERATIONAL_DATA'][gen]['MUTATED_CHROMOSOMES'] = SelCh
 		#evaluate offspring, call objective function
 		ObjVSel = tsp_fun.tsp_fun(SelCh,Dist)
 		#reinsert offspring into population
 		Chrom,ObjV = tsp_reins.tsp_reins(Chrom,SelCh,1,[1],ObjV,ObjVSel)
-		runData['GENERATIONAL_DATA'][gen]['REINSERTED_CHROMOSOMES'] = Chrom
+		# runData['GENERATIONAL_DATA'][gen]['REINSERTED_CHROMOSOMES'] = Chrom
 	            
 	#	Chrom = tsp_ImprovePopulation.tsp_ImprovePopulation(NIND, NVAR, Chrom, LOCALLOOP, Dist)
 		#increment generation counter
