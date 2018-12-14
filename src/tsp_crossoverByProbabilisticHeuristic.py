@@ -105,4 +105,4 @@ def tsp_crossoverByProbabilisticHeuristic(parents, distanceMatrix):
 
 
 if __name__ == '__main__':
-    print(tsp_crossoverByGreedyHeuristic(PARENTS,MATRIX))
+    print(tsp_crossoverByProbabilisticHeuristic(PARENTS,MATRIX))
