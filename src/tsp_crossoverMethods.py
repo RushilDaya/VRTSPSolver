@@ -15,11 +15,12 @@ def mapping(REP):
 # The functions which come below are equivelent besides the method they call
 # should actually just reduce this to a single function
 
-def tsp_xaltEdges(oldChromosome, crossoverProbability=1.0):
+def tsp_xaltEdges(oldChromosome, crossoverProbability=1.0, distanceMatrix=None):
 	# only applies to adjacency representation
 	# oldChromosome is a matrix 
 	# crossoverProbability is a float scalar in range [0,1]
 	# returns a new chromosome matrix
+	# Dist is not used
 	
 	oldChromosomeList = oldChromosome.tolist()
 	

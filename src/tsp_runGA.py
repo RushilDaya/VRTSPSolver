@@ -55,8 +55,8 @@ def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_M
 		
 		#visualizeTSP(x,y,adj2path(Chrom(t,:)), minimum, ah1, gen, best, mean_fits, worst, ah2, ObjV, NIND, ah3);
 
-		if ((sObjV[stopN]-sObjV[0]) <= (10 ** -5)):
-			break
+		#if ((sObjV[stopN]-sObjV[0]) <= (10 ** -5)):
+			#break
 		runData['GENERATIONAL_DATA'][gen]['START_GENERATION_CHROMOSOMES'] = Chrom
 		#assign fitness values to entire population
 		FitnV = tsp_ranking.tsp_ranking(ObjV) 
@@ -65,7 +65,7 @@ def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_M
 		SelCh = tsp_select.tsp_select(SELECTION, Chrom, FitnV, GGAP)
 		runData['GENERATIONAL_DATA'][gen]['SELECTED_CHROMOSOMES'] = SelCh
 		#recombine individuals (crossover)
-		SelCh = tsp_recombin.tsp_recombin(CROSSOVER,SelCh,PR_CROSS)
+		SelCh = tsp_recombin.tsp_recombin(CROSSOVER,SelCh,PR_CROSS,DISTANCE_MATRIX=Dist) # Dist is used by some crossover methods( Heuristics)
 		runData['GENERATIONAL_DATA'][gen]['RECOMBINED_CHROMOSOMES'] = SelCh
 		SelCh = tsp_mutate.tsp_mutate(MUTATION,SelCh,PR_MUT)
 		runData['GENERATIONAL_DATA'][gen]['MUTATED_CHROMOSOMES'] = SelCh

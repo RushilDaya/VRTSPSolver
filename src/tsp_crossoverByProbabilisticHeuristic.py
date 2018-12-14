@@ -42,7 +42,7 @@ def _probChoice(distances):
     
     for i in range(len(preferenceVector)):
         if randomSelection < preferenceVector[i]:
-            return distanceArray[i]
+            return i
     
     raise RuntimeError('function failed to determine an appropriate value')
 
@@ -54,13 +54,13 @@ def tsp_crossoverByProbabilisticHeuristic(parents, distanceMatrix):
     # but remember that when actually indexing in python it uses zero-indices
 
     # initialize the objects 
-    (_,NVAR) = parents.shape
+    NVAR = len(parents[0])
     unvisitedNodes = _rangedSet(NVAR)
     child = np.zeros(NVAR)
-    reversedParent1 = _reverse(parents[0]).tolist()[0]
-    reversedParent2 = _reverse(parents[1]).tolist()[0]
+    reversedParent1 = _reverse(parents[0])
+    reversedParent2 = _reverse(parents[1])
 
-    adjacencyList = parents.tolist() # there is probably a more efficient way to do this
+    adjacencyList = parents # there is probably a more efficient way to do this
     adjacencyList.append(reversedParent1)
     adjacencyList.append(reversedParent2)
     adjacencyMatrix = np.matrix(adjacencyList).transpose()
