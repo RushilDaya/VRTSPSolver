@@ -1,11 +1,14 @@
 import numpy as np 
 import random
 
-MATRIX = np.matrix([[0,1,1],
-                    [1,0,1],
-                    [1,1,0]])
-PARENTS = np.matrix([[2,3,1],
-                     [3,1,2]])
+
+MATRIX = np.matrix([[0, 1, 2.5, 2],
+                    [1, 0, 2, 2.5],
+                    [2.5, 2, 0, 3],
+                    [2, 2.5, 3, 0]])
+
+PARENTS = np.matrix([[4,1,2,3],
+                     [4,3,1,2]])
 
 def _reverse(adjList):
 	#  returns the adjacency representation of walking through
@@ -29,49 +32,51 @@ def tsp_crossoverByGreedyHeuristic(parents, distanceMatrix):
 
     # initialize the objects 
     (_,NVAR) = parents.shape
-    unvistedNodes = _rangedSet(NVAR)
+    unvisitedNodes = _rangedSet(NVAR)
     child = np.zeros(NVAR)
-    reversedParent1 = _reverse(parents[0])
-    reversedParent2 = _reverse(parents[1])
+    reversedParent1 = _reverse(parents[0]).tolist()[0]
+    reversedParent2 = _reverse(parents[1]).tolist()[0]
 
     adjacencyList = parents.tolist() # there is probably a more efficient way to do this
     adjacencyList.append(reversedParent1)
     adjacencyList.append(reversedParent2)
-    adjacencyMatrix = np.transpose(np.matrix(adjacencyList))
+    adjacencyMatrix = np.matrix(adjacencyList).transpose()
 
 
     # start in a random city
-    selectedNode = random.randint(0,NVAR-1)
+    selectedNode = random.randint(1,NVAR-1)
     startNode = selectedNode
-    vistedNodes.add(selectedNode)
-    unvistedNodes.remove(selectedNode)
+    unvisitedNodes.remove(selectedNode)
 
-    while len(unvistedNodes) > 0:
+
+    while len(unvisitedNodes) > 0:
         # determine the the available options
+
         candidateNextNodes = adjacencyMatrix[selectedNode-1]
         validCandidates = []
-        for candidate in candidateNextNodes:
-            if candidate in unvistedNodes:
+        for candidate in candidateNextNodes.tolist()[0]:
+            if candidate in unvisitedNodes:
                 validCandidates.append(candidate)
-        
+
+
         if len(validCandidates) == 0:
             # no unvisited nodes pick at random
             selectedNextNode = random.choice(tuple(unvisitedNodes))
         else:
             candidateDistances = [_getDistance(selectedNode,candidate,distanceMatrix) for candidate in validCandidates]
-            selectedNextNode = validCandidates[candidateDistances.argmax()]
+            indexOfNearest = candidateDistances.index(min(candidateDistances))
+            selectedNextNode = validCandidates[indexOfNearest]
 
         # visit the node
-        child[selectedNode] = selectedNextNode
-        unvistedNodes.remove(selectedNextNode)
+        child[selectedNode-1] = selectedNextNode
+        unvisitedNodes.remove(selectedNextNode)
         selectedNode = selectedNextNode
     
-    child[selectedNode] = startNode # close the loop
-
-    return child
+    child[selectedNode-1] = startNode # close the loop
+    return [int(item) for item in child]
 
     
 
 
 if __name__ == '__main__':
-    tsp_heuristicCrossover(PARENTS,MATRIX)
+    print(tsp_crossoverByGreedyHeuristic(PARENTS,MATRIX))
