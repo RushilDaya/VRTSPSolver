@@ -6,6 +6,7 @@ import pickle
 import numpy as np
 import tsp_crossoverMethods
 from tsp_runGA import tsp_runGA
+import tsp_crossoverMethods, tsp_mutationMethods, tsp_selectionMethods
 
 # every 
 
@@ -17,7 +18,7 @@ def load_data(fileName):
 
 def load_configurations(fileName):
     # dummy function for now
-    return [{'NAME':'conf1','NIND':50,'MAXGEN':100,'ELITIST':0.05,'STOP_PERCENTAGE':1,'PR_CROSS':0.95,'PR_MUT':0.05,'LOCALLOOP':None,'CROSSOVER':tsp_crossoverMethods.tsp_xaltEdges,'MUTATION':tsp_mutationMethods.tsp_inversion,'SELECTION':tsp_selectionMethods.tsp_sus}]
+    return [{'NAME':'conf1','NIND':100,'MAXGEN':50,'ELITIST':0.05,'STOP_PERCENTAGE':1,'PR_CROSS':0.95,'PR_MUT':0.05,'LOCALLOOP':None,'CROSSOVER':tsp_crossoverMethods.tsp_xaltEdges,'MUTATION':tsp_mutationMethods.tsp_inversion,'SELECTION':tsp_selectionMethods.tsp_sus}]
 
 def runConfiguration(config,x,y, dataFile ,runsNum):
     print(config)

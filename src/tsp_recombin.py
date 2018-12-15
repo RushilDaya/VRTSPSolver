@@ -5,7 +5,7 @@ import numpy as np
 # multiple populations and calls the low-level recombination function
 # for the actual recombination process.
 
-def tsp_recombin(REC_F, Chrom, RecOpt = 0.7, SUBPOP = 1):
+def tsp_recombin(REC_F, Chrom, RecOpt = 0.7, SUBPOP = 1, DISTANCE_MATRIX=None):
 
 	if (RecOpt < 0 or RecOpt > 1):
 		raise outOfRange("RecOpt must be a scalar in [0, 1]")
@@ -22,7 +22,7 @@ def tsp_recombin(REC_F, Chrom, RecOpt = 0.7, SUBPOP = 1):
 	NewChrom = None
 	for irun in range(SUBPOP):
 		ChromSub = Chrom[(irun)*Nind:(irun+1)*Nind]
-		NewChromSub = REC_F(ChromSub, RecOpt)
+		NewChromSub = REC_F(ChromSub, RecOpt, DISTANCE_MATRIX)
 		NewChrom = NewChrom and numpy.concatenate((NewChrom, NewChromSub)) or np.copy(NewChromSub)
 	
 	return np.matrix(NewChrom)
