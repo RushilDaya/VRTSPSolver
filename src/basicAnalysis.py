@@ -17,11 +17,11 @@ def analyseRun(run):
     plt.plot(x,worst, color='g')
     plt.show()
     
-def analyseBestPath(run):
+def analyseBestPath(run, representation):
     genData = run['GENERATIONAL_DATA']
     lastRun = max(genData.keys())
-    best = genData[lastRun]['START_GENERATION_CHROMOSOMES'][genData[lastRun]['STARTING_FITNESS'].argmin()]
-    plotRoute(run['NODES']['X'],run['NODES']['Y'],best)
+    best = genData[lastRun]['START_GENERATION_CHROMOSOMES'][genData[lastRun]['STARTING_FITNESS'].argmax()]
+    plotRoute(run['NODES']['X'],run['NODES']['Y'],best, representation)
 
 
 
@@ -29,8 +29,9 @@ def checkResults(fileName):
     fileData = open(fileName,'rb')
     confObj = pickle.load(fileData)
     print(confObj['PARAMETERS'])
+    representation = confObj['PARAMETERS']['REPRESENTATION']
     runs = confObj['RUNS']
-    [(analyseRun(run),analyseBestPath(run)) for run in runs]
+    [(analyseRun(run),analyseBestPath(run, representation)) for run in runs]
 
     return True
 

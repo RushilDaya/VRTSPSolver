@@ -16,7 +16,7 @@ def _initPopulation(REPRESENTATION,NIND, NVAR):
 
 	elif REPRESENTATION == 'REP_PATH':
 		Chrom = np.matrix(np.zeros((NIND,NVAR), dtype=int))
-		popList = list(range(2,NVAR))  # start all path representations at node 1 for consistency
+		popList = list(range(2,NVAR+1))  # start all path representations at node 1 for consistency
 		for row in range(NIND):
 			tmp = popList[:]
 			random.shuffle(tmp)
@@ -56,7 +56,6 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE,
 
 	# initialize population
 	Chrom = _initPopulation(REPRESENTATION, NIND, NVAR)
-
 	runData['INITIAL_CHROMOSOME']=Chrom
 	gen = 0
 	# number of individuals of equal fitness needed to stop

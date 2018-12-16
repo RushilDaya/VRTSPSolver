@@ -7,7 +7,6 @@ from tsp_crossoverMethods import mapping
 # for the actual recombination process.
 
 def tsp_recombin(REPRESENTATION, REC_F, Chrom, RecOpt = 0.7, SUBPOP = 1, DISTANCE_MATRIX=None):
-	
 	# make sure the recombination is correct for the representation
 	funcName = REC_F.__name__
 	validMethods = mapping(REPRESENTATION).keys()

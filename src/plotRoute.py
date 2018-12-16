@@ -5,10 +5,15 @@ import matplotlib.pyplot as plt
 import numpy as np 
 from tsp_adj2path import tsp_adj2path
 
-def plotRoute(nodesX,nodesY,pathRep):
+def plotRoute(nodesX,nodesY,pathRep, REPRESENTATION):
         # nodes is a N by 2 matrix
         # pathRep is an array in the Adjacency
-    pathRep = tsp_adj2path(pathRep.tolist()[0])
+  #  pathRep = tsp_adj2path(pathRep.tolist()[0])
+    if REPRESENTATION == 'REP_PATH':
+        pathRep = pathRep.tolist()[0]
+    elif REPRESENTATION == 'REP_ADJACENCY':
+        pathRep = tsp_adj2path(pathRep.tolist()[0])
+        
     NVAR = len(pathRep)
     print(pathRep)
     for i in range(NVAR-1):

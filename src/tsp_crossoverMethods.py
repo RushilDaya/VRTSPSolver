@@ -12,7 +12,7 @@ def mapping(REP):
 		return function_mappings
 	elif(REP=='REP_PATH'):
 		function_mappings = {'tsp_sequentialConstructiveCrossover':tsp_sequentialConstructiveCrossover}
-		return None
+		return function_mappings
 
 # The functions which come below are equivelent besides the method they call
 # should actually just reduce this to a single function
@@ -127,14 +127,15 @@ def tsp_sequentialConstructiveCrossover(oldChromosome, crossoverProbability=1.0,
 	
 	for i in range(rows-1):
 		if random.random() < crossoverProbability:
-			child = tsp_crossoverBySequentialConstructiveCrossover([oldChromosome[i],oldChromosome[i+1],distanceMatrix])
+			child = tsp_crossoverBySequentialConstructiveCrossover.tsp_crossoverBySequentialConstructiveCrossover([oldChromosomeList[i],oldChromosomeList[i+1]],distanceMatrix)
 		else:
-			child = oldChromosome[i] 
+			child = oldChromosomeList[i]
 		newChromosomeList.append(child)
-	
+
 	if random.random()<crossoverProbability:
-		lastChild = tsp_crossoverBySequentialConstructiveCrossover([oldChromosome[row-1],oldChromosome[0],distanceMatrix])
+		lastChild = tsp_crossoverBySequentialConstructiveCrossover.tsp_crossoverBySequentialConstructiveCrossover([oldChromosomeList[rows-1],oldChromosomeList[0]],distanceMatrix)
+		newChromosomeList.append(lastChild)
 	else:
-		newChromosomeList.append(oldChromosome[row-1])
+		newChromosomeList.append(oldChromosomeList[rows-1])
 
 	return np.matrix(newChromosomeList)
