@@ -1,5 +1,6 @@
 import numpy as np 
 import random
+from mixins import _reverse, _rangedSet
 
 
 MATRIX = np.matrix([[0, 1, 2.5, 2],
@@ -7,18 +8,7 @@ MATRIX = np.matrix([[0, 1, 2.5, 2],
                     [2.5, 2, 0, 3],
                     [2, 2.5, 3, 0]])
 
-PARENTS = np.matrix([[4,1,2,3],
-                     [4,3,1,2]])
-
-def _reverse(adjList):
-	#  returns the adjacency representation of walking through
-	# the nodes in the reversed order 
-	return np.argsort(adjList)+1
-
-def _rangedSet(rangeSize):
-	# returns a set thats of 1-indexed values
-	# eg if rangeSize is 5 the returned set is {1,2,3,4,5}
-	return set (np.linspace(1,rangeSize,rangeSize).astype('int'))
+PARENTS = [[4,1,2,3],[4,3,1,2]]
 
 def _getDistance(fromNode, toNode, distanceMatrix):
     # the nodes are 1 indexed here
