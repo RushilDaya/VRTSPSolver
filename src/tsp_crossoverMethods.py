@@ -4,6 +4,8 @@ import tsp_crossAlternateEdges
 import tsp_crossoverByGreedyHeuristic
 import tsp_crossoverByProbabilisticHeuristic
 import tsp_crossoverBySequentialConstructiveCrossover
+import tsp_crossoverByOrder
+
 
 def mapping(REP):
 	if(REP=='REP_ADJACENCY'):
@@ -11,7 +13,8 @@ def mapping(REP):
 							 'tsp_probabilisticHeuristicCrossover':tsp_probabilisticHeuristicCrossover}
 		return function_mappings
 	elif(REP=='REP_PATH'):
-		function_mappings = {'tsp_sequentialConstructiveCrossover':tsp_sequentialConstructiveCrossover}
+		function_mappings = {'tsp_sequentialConstructiveCrossover':tsp_sequentialConstructiveCrossover,
+							 'tsp_orderedCrossover':tsp_orderedCrossover }
 		return function_mappings
 
 # The functions which come below are equivelent besides the method they call
@@ -139,3 +142,29 @@ def tsp_sequentialConstructiveCrossover(oldChromosome, crossoverProbability=1.0,
 		newChromosomeList.append(oldChromosomeList[rows-1])
 
 	return np.matrix(newChromosomeList)
+
+def tsp_orderedCrossover(oldChromosome, crossoverProbability=1.0, distanceMatrix=None):
+	# a path representation method
+	# each pair of parents will produce 2 children when mated
+
+	oldChromosomeList = oldChromosome.tolist()
+	rows = len(oldChromosomeList)
+
+	if rows % 2 != 0:
+		rows = rows-1
+
+	newChromosomeList =  []
+
+	for i in range(0,rows,2):
+		if random.random() < crossoverProbability:
+			newChromosomeList =  newChromosomeList + tsp_crossoverByOrder.tsp_crossoverByOrder([oldChromosomeList[i],oldChromosomeList[i+1]])
+		else:
+			newChromosomeList.append(oldChromosomeList[i])
+			newChromosomeList.append(oldChromosomeList[i+1])
+
+	if len(oldChromosomeList) % 2 !=0:
+		newChromosomeList.append(oldChromosomeList[-1])
+	
+	return np.matrix(newChromosomeList)
+
+#NOTE i think range should be range(0,rows-1,2) for most cases
