@@ -21,8 +21,8 @@ pathData = '../resources/datasets/'
 
 # FUNCTIONS
 def runGAByProccess(argsTSP):
-	x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, LOCALLOOP = argsTSP
-	res = tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, LOCALLOOP)
+	REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, LOCALLOOP = argsTSP
+	res = tsp_runGA(REPRESENTATION, x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, LOCALLOOP)
 	return res
 
 def mp(func, args, cores, currentConfig):
@@ -43,6 +43,7 @@ fileName = 'rondrit004.tsp'
 for currentConfig in keys:
 	##SET PARAMETERS
 	############################################################
+	REPRESENTATION = cfg[currentConfig]['REPRESENTATION']
 	NIND = cfg[currentConfig]['NIND']
 	MAXGEN = cfg[currentConfig]['MAXGEN']
 	ELITIST = cfg[currentConfig]['ELITIST']
@@ -63,7 +64,7 @@ for currentConfig in keys:
 	############################################################
 
 	##Multiprocess GA Run
-	argsTSP = [x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, LOCALLOOP]
+	argsTSP = [REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, LOCALLOOP]
 	print (argsTSP)
 	res = mp(runGAByProccess, [argsTSP for i in range(REPETITIONS)], N_CORES, currentConfig)
 	## Write to File Output res

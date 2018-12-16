@@ -2,8 +2,8 @@ import numpy as np
 import random
 from mixins import  _rangedSet
 
-MATRIX = np.matrix([[0, 1, 2.5, 2],
-                    [1, 0, 2, 2.5],
+MATRIX = np.matrix([[0, 10, 2.5, 2],
+                    [10, 0, 2, 2.5],
                     [2.5, 2, 0, 3],
                     [2, 2.5, 3, 0]])
 
@@ -47,7 +47,7 @@ def tsp_crossoverBySequentialConstructiveCrossover(parents, distanceMatrix):
     for i in range(1,NVAR):
         parentOneNextNode = _chooseNext(parents[0],child[i-1], unvisitedNodes) 
         parentTwoNextNode = _chooseNext(parents[1],child[i-1], unvisitedNodes)
-        selectedNextNode = _selectNearest(,[parentOneNextNode,parentTwoNextNode],distanceMatrix) 
+        selectedNextNode = _selectNearest(child[i-1],[parentOneNextNode,parentTwoNextNode],distanceMatrix) 
         child.append(selectedNextNode)
         unvisitedNodes.remove(selectedNextNode)
 

@@ -18,13 +18,14 @@ def load_data(fileName):
 
 def load_configurations(fileName):
     # dummy function for now
-    return [{'NAME':'conf1','NIND':100,'MAXGEN':50,'ELITIST':0.05,'STOP_PERCENTAGE':1,'PR_CROSS':0.95,'PR_MUT':0.05,'LOCALLOOP':None,'CROSSOVER':tsp_crossoverMethods.tsp_xaltEdges,'MUTATION':tsp_mutationMethods.tsp_inversion,'SELECTION':tsp_selectionMethods.tsp_sus}]
+    return [{'NAME':'conf1', 'REPRESENTATION':'REP_ADJACENCY', 'NIND':100,'MAXGEN':50,'ELITIST':0.05,'STOP_PERCENTAGE':1,'PR_CROSS':0.95,'PR_MUT':0.05,'LOCALLOOP':None,'CROSSOVER':tsp_crossoverMethods.tsp_xaltEdges,'MUTATION':tsp_mutationMethods.tsp_inversion,'SELECTION':tsp_selectionMethods.tsp_sus}]
 
 def runConfiguration(config,x,y, dataFile ,runsNum):
     print(config)
     outputFileName = dataFile.split('.')[0] + '_' + config['NAME'] + '.pkl'
     configObj = {}
     configObj['PARAMETERS']={
+                    'REPRESENTATION':config['REPRESENTATION'],
 					'NIND':config['NIND'],
 					'MAXGEN':config['MAXGEN'],
 					'NVAR':len(x),
@@ -37,7 +38,7 @@ def runConfiguration(config,x,y, dataFile ,runsNum):
     runs = []
 
     for i in range(runsNum):
-        runData = tsp_runGA(x,y, config['NIND'], config['MAXGEN'], len(x),
+        runData = tsp_runGA(config['REPRESENTATION'], x,y, config['NIND'], config['MAXGEN'], len(x),
                          config['ELITIST'], config['STOP_PERCENTAGE'], config['PR_CROSS'],
                          config['PR_MUT'], config['CROSSOVER'], config['MUTATION'], config['SELECTION'], config['LOCALLOOP'])
         runs.append(runData)

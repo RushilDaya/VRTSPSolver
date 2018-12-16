@@ -1,4 +1,5 @@
 # any small functions which are used in many places
+import numpy as np
 
 def _rangedSet(rangeSize):
 	# returns a set thats of 1-indexed values
@@ -9,3 +10,9 @@ def _reverse(adjList):
 	#  returns the adjacency representation of walking through
 	# the nodes in the reversed order 
 	return np.argsort(adjList)+1
+
+def _startAtOne(array):
+	# takes in an array and returns it such that it such that it starts at 1
+	indexOne = list(array).index(1)
+	oneStarting = np.roll(array, -indexOne)
+	return oneStarting

@@ -2,17 +2,20 @@ import random
 import tsp_path2adj
 import tsp_adj2path
 import numpy as np
+from mixins import _startAtOne
 
 # low level operator to perform inversion mutation
 def mapping():
 	function_mappings = {'tsp_inversion': tsp_inversion,}
 	return function_mappings
 
-def tsp_inversion(oldChrome,REP='adjacency'):
+def tsp_inversion(oldChrome, REPRESENTATION):
+	# NOTE: inversion mutation always needs to be performed on path representation
 	# old Chrome is an vector defining a single chromosome
-	if REP == 'path':
+
+	if REPRESENTATION == 'REP_PATH':
 		tempChrome = oldChrome
-	elif REP == 'adjacency':
+	elif REPRESENTATION == 'REP_ADJACENCY':
 		tempChrome = tsp_adj2path.tsp_adj2path(oldChrome)
 	else:
 		raise ValueError('Invalid representation provided')
@@ -26,7 +29,7 @@ def tsp_inversion(oldChrome,REP='adjacency'):
 	else:
 		tempChrome[cutLoci[0]:cutLoci[1]+1] = tempChrome[cutLoci[1]:cutLoci[0]-1:-1]
 
-	if REP == 'path':
-		return tempChrome
-	if REP == 'adjacency':
+	if REPRESENTATION == 'REP_PATH':
+		return _startAtOne(tempChrome)
+	if REPRESENTATION == 'REP_ADJACENCY':
 		return tsp_path2adj.tsp_path2adj(tempChrome)
