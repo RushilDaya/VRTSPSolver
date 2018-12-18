@@ -5,7 +5,7 @@ import numpy as np
 from mixins import _startAtOne
 
 MAX_ITER = 1
-INNER_MUT_PROB = 1
+INNER_MUT_PROB = 10
 
 def get_MaxIter():
 	return MAX_ITER
@@ -20,7 +20,7 @@ def set_InnerMutProb(value):
 	INNER_MUT_PROB = value
 
 def mapping():
-	function_mappings = {'tsp_inversion': tsp_inversion, 'tsp_swap': tsp_swap, 'tsp_nSwap': tsp_nSwap, 'tsp_insertion': tsp_insertion, 'tsp_scramble': tsp_scramble}
+	function_mappings = {'tsp_inversion': tsp_inversion, 'tsp_swap': tsp_swap, 'tsp_nSwap': tsp_nSwap, 'tsp_insertion': tsp_insertion, 'tsp_scramble': tsp_scramble,'tsp_3scramble': tsp_3scrambl}
 	return function_mappings
 
 def _selectRep(Chrom, REPRESENTATION):
@@ -71,7 +71,7 @@ def tsp_nSwap(oldChrome, REPRESENTATION):
 
 	for i in range(MAX_ITER):
 		x,y = random.sample(range(len(tempChrome)), 2)
-		if random.random()<INNER_MUT_PROB:
+		if random.random()<=INNER_MUT_PROB:
 			tempChrome[x],tempChrome[y]=tempChrome[y],tempChrome[x]
 
 	return _returnRep(tempChrome,REPRESENTATION)
@@ -96,5 +96,18 @@ def tsp_scramble(oldChrome, REPRESENTATION):
 	x,y = np.sort(random.sample(range(len(tempChrome)), 2))
 
 	tempChrome[x:y] = np.random.permutation(tempChrome[x:y])
+
+	return _returnRep(tempChrome,REPRESENTATION)
+
+# low level operator to perform repeted scramble mutation
+def tsp_3scramble(oldChrome, REPRESENTATION):
+
+	tempChrome = _selectRep(oldChrome,REPRESENTATION)
+	
+	for i in MAX_ITER:
+		x = random.randomint(0,len(oldChrome)-2)
+		y = x+2
+		if random.random()<=INNER_MUT_PROB:
+			tempChrome[x:y] = np.random.permutation(tempChrome[x:y])
 
 	return _returnRep(tempChrome,REPRESENTATION)

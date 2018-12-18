@@ -61,7 +61,7 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE,
 	# number of individuals of equal fitness needed to stop
 	stopN = int(np.ceil(STOP_PERCENTAGE*NIND))-1
 	# evaluate initial population
-	ObjV = tsp_fun.tsp_fun(REPRESENTATION, Chrom,Dist)
+	ObjV = tsp_fun.tsp_fun(REPRESENTATION, Chrom, Dist)
 	best = np.zeros(MAXGEN)
 	# generational loop
 	runData['GENERATIONAL_DATA'] = {}
