@@ -8,7 +8,7 @@ from concurrent.futures import ProcessPoolExecutor
 # CONSTANTS
 N_CORES = 4
 N_THREADS = 2
-REPETITIONS = 300
+REPETITIONS = 5
 
 # MAPPING
 mutation_mappings = tsp_mutationMethods.mapping()
@@ -39,7 +39,7 @@ with open(pathCnf+"config.yml") as ymlfile:
 
 
 keys = list(cfg.keys())
-fileName = 'rondrit004.tsp'
+fileName = 'rondrit023.tsp'
 for currentConfig in keys:
 	##SET PARAMETERS
 	############################################################
@@ -65,7 +65,24 @@ for currentConfig in keys:
 
 	##Multiprocess GA Run
 	argsTSP = [REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, LOCALLOOP]
-	print (argsTSP)
+	#print (argsTSP)
 	res = mp(runGAByProccess, [argsTSP for i in range(REPETITIONS)], N_CORES, currentConfig)
 	## Write to File Output res
 	##########################
+	# outputFileName = '../resources/out/'+STOPCRITERIA_TXT+'.pkl'
+	# configObj = {}
+	# configObj['PARAMETERS']={
+	# 	'NIND':NIND,
+	# 	'MAXGEN':MAXGEN,
+	# 	'NVAR':len(x),
+	# 	'ELITIST':ELITIST,
+	# 	'STOP_PERCENTAGE':STOP_PERCENTAGE,
+	# 	'PR_CROSS':PR_CROSS,
+	# 	'PR_MUT':PR_MUT,
+	# 	'LOCALLOOP':LOCALLOOP
+	# }
+	# configObj['RUNS'] = res
+	# outFile = open(outputFileName,'wb')
+	# pickle.dump(configObj,outFile)
+	# outFile.close()
+	print(res[0]['RESULTS']['BEST'][:-1])

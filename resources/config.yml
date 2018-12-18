@@ -21,5 +21,31 @@ config2:
  PR_MUT : 0.05
  LOCALLOOP : 0
  CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ MUTATION : tsp_swap
+ SELECTION : tsp_sus
+
+config3:
+ REPRESENTATION : REP_ADJACENCY
+ NIND : 50
+ MAXGEN : 100
+ ELITIST : 0.05
+ STOP_PERCENTAGE : 0.95
+ PR_CROSS : 0.95
+ PR_MUT : 0.05
+ LOCALLOOP : 0
+ CROSSOVER : tsp_xaltEdges
+ MUTATION : tsp_nSwap
+ SELECTION : tsp_sus
+
+config4:
+ REPRESENTATION : REP_ADJACENCY
+ NIND : 50
+ MAXGEN : 100
+ ELITIST : 0.05
+ STOP_PERCENTAGE : 0.95
+ PR_CROSS : 0.95
+ PR_MUT : 0.05
+ LOCALLOOP : 0
+ CROSSOVER : tsp_xaltEdges
+ MUTATION : tsp_scramble
  SELECTION : tsp_sus
