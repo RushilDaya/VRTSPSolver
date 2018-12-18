@@ -104,7 +104,7 @@ def tsp_3scramble(oldChrome, REPRESENTATION):
 
 	tempChrome = _selectRep(oldChrome,REPRESENTATION)
 	
-	for i in MAX_ITER:
+	for i in range(MAX_ITER):
 		x = random.randomint(0,len(oldChrome)-2)
 		y = x+2
 		if random.random()<=INNER_MUT_PROB:
