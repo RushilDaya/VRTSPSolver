@@ -20,7 +20,7 @@ def set_InnerMutProb(value):
 	INNER_MUT_PROB = value
 
 def mapping():
-	function_mappings = {'tsp_inversion': tsp_inversion, 'tsp_swap': tsp_swap, 'tsp_nSwap': tsp_nSwap, 'tsp_insertion': tsp_insertion, 'tsp_scramble': tsp_scramble,'tsp_3scramble': tsp_3scrambl}
+	function_mappings = {'tsp_inversion': tsp_inversion, 'tsp_swap': tsp_swap, 'tsp_nSwap': tsp_nSwap, 'tsp_insertion': tsp_insertion, 'tsp_scramble': tsp_scramble,'tsp_3scramble': tsp_3scramble}
 	return function_mappings
 
 def _selectRep(Chrom, REPRESENTATION):
