@@ -1,19 +1,20 @@
 import yaml
+import pickle
 import inputData
 import numpy as np
 from tsp_runGA import tsp_runGA
-import tsp_crossoverMethods, tsp_mutationMethods, tsp_selectionMethods
+import tsp_crossoverMethods, tsp_mutationMethods, tsp_selectionMethods, tsp_stopCriteria
 from concurrent.futures import ProcessPoolExecutor
 
 # CONSTANTS
 N_CORES = 4
-N_THREADS = 2
-REPETITIONS = 300
+REPETITIONS = 5
 
 # MAPPING
 mutation_mappings = tsp_mutationMethods.mapping()
 crossover_mappings = tsp_crossoverMethods.mapping('REP_ADJACENCY')
 selection_mappings = tsp_selectionMethods.mapping('REP_ADJACENCY')
+stopCriteria_mapping = tsp_stopCriteria.mapping()
 
 # PATHS
 pathCnf = '../resources/'
@@ -21,26 +22,36 @@ pathData = '../resources/datasets/'
 
 # FUNCTIONS
 def runGAByProccess(argsTSP):
-	x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, LOCALLOOP = argsTSP
-	res = tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, LOCALLOOP)
+	x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, STOPCRITERIA, LOCALLOOP = argsTSP
+	res = tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, STOPCRITERIA, LOCALLOOP)
 	return res
 
 def mp(func, args, cores, currentConfig):
 	with ProcessPoolExecutor(max_workers=cores) as executor:
 		res = executor.map(func, args)
-	#print(currentConfig,list(res))
 	return list(res)
 
 
 # MAIN SCRIPT
-
 with open(pathCnf+"config.yml") as ymlfile:
 		cfg = yaml.load(ymlfile)
 
 
 keys = list(cfg.keys())
-fileName = 'rondrit004.tsp'
-for currentConfig in keys:
+currentConfig = 'config1'
+fileName = 'rondrit023.tsp'
+stopCriterias = ['bestWorst','runingMean','stdDev','phi','dummy']
+for sc in stopCriterias:
+	if sc=='bestWorst':
+		tsp_stopCriteria.setThreshold((10**-1))
+	elif sc=='stdDev':
+		tsp_stopCriteria.setThreshold((10**-1.7))
+	elif sc=='phi':
+		tsp_stopCriteria.setThreshold((0.14))
+	elif sc=='runingMean':
+		tsp_stopCriteria.setThreshold((10**-6))
+	else:
+		tsp_stopCriteria.setThreshold(0)
 	##SET PARAMETERS
 	############################################################
 	NIND = cfg[currentConfig]['NIND']
@@ -58,13 +69,34 @@ for currentConfig in keys:
 	SELECTION = cfg[currentConfig]['SELECTION']
 	SELECTION = selection_mappings[SELECTION]
 
+	STOPCRITERIA_TXT = sc
+	STOPCRITERIA = stopCriteria_mapping[STOPCRITERIA_TXT]
+
 	x,y = inputData.inputData(pathData+fileName)
 	NVAR = len(x)
 	############################################################
 
 	##Multiprocess GA Run
-	argsTSP = [x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, LOCALLOOP]
-	print (argsTSP)
+	argsTSP = [x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, STOPCRITERIA, LOCALLOOP]
+	#print (STOPCRITERIA_TXT)
+	#res = tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, STOPCRITERIA, LOCALLOOP)
 	res = mp(runGAByProccess, [argsTSP for i in range(REPETITIONS)], N_CORES, currentConfig)
+	#print (res)
 	## Write to File Output res
 	##########################
+	outputFileName = '../resources/out/'+STOPCRITERIA_TXT+'.pkl'
+	configObj = {}
+	configObj['PARAMETERS']={
+		'NIND':NIND,
+		'MAXGEN':MAXGEN,
+		'NVAR':len(x),
+		'ELITIST':ELITIST,
+		'STOP_PERCENTAGE':STOP_PERCENTAGE,
+		'PR_CROSS':PR_CROSS,
+		'PR_MUT':PR_MUT,
+		'LOCALLOOP':LOCALLOOP
+	}
+	configObj['RUNS']=res
+	outFile = open(outputFileName,'wb')
+	pickle.dump(configObj,outFile)
+	outFile.close()

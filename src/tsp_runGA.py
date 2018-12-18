@@ -28,6 +28,8 @@ def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_M
 	for i in range(len(x)):
 		for j in range(len(y)):
 			Dist[i,j] = np.sqrt((x[i]-x[j])**2+(y[i]-y[j])**2)
+	# normalize Dist
+	#Dist=Dist/np.max(Dist)
 	# initialize population
 	Chrom = np.matrix(np.zeros((NIND,NVAR),dtype=int))
 	popList = list(range(1,NVAR+1))
@@ -45,7 +47,7 @@ def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_M
 	best = np.zeros(MAXGEN)
 	
 	# set Threshold
-	tsp_stopCriteria.setThreshold((10**-5))
+	#tsp_stopCriteria.setThreshold((1.119))
 	# generational loop
 	# runData['GENERATIONAL_DATA'] = {}
 	runData['BREAK'] = MAXGEN
@@ -58,8 +60,8 @@ def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_M
 
 		#visualizeTSP(x,y,adj2path(Chrom(t,:)), minimum, ah1, gen, best, mean_fits, worst, ah2, ObjV, NIND, ah3);
 		
-		scDepth = 20
-		scArgs = [best[:(gen+1)],scDepth,sObjV,stopN]
+		scDepth = 150
+		scArgs = [best[:(gen+1)],scDepth,(sObjV/np.max(sObjV)) ,stopN]
 		stopCriteria = STOPCRITERIA(scArgs)
 		if (stopCriteria):
 			runData['BREAK'] = gen
@@ -92,4 +94,5 @@ def tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_M
 		'WORST':worst,
 		'MEAN':mean_fits
 	}
+	print(tsp_stopCriteria.getThreshold())
 	return runData

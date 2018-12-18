@@ -1,7 +1,7 @@
 import numpy as np
 
-THRESHOLD = float('Inf')
-#THRESHOLD = (10 ** -5)
+#THRESHOLD = float('Inf')
+THRESHOLD = 0#(10 ** -5)
 
 def mapping():
 	function_mappings = {'runingMean': generic_runingMean,'bestWorst': generic_bestWorst,'stdDev': generic_stdDev,'phi': generic_phi,'dummy': dummy}
@@ -23,8 +23,10 @@ def generic_runingMean(scArgs):
 	return runingMean(bestList, depth)
 
 def runingMean(bestList, depth):
-	res = (len(bestList)<depth) and float('Inf') or abs(bestList[-depth:][-1]-np.mean(bestList[-depth:]))
-	return res<=0
+	res = float('Inf')
+	if not(len(bestList)<depth):
+		res = abs(bestList[-depth:][-1]-np.mean(bestList[-depth:]))
+	return res<=THRESHOLD
 
 ## Partial Convergence
 def generic_bestWorst(scArgs):
@@ -32,7 +34,9 @@ def generic_bestWorst(scArgs):
 	return bestWorst(sObjV, stopN)
 
 def bestWorst(sObjV, stopN):
-	res =  (stopN > len(sObjV)) and float('Inf') or abs(sObjV[0]-sObjV[stopN])
+	res = float('Inf') 
+	if not((stopN > len(sObjV))):
+		res = abs(sObjV[0]-sObjV[stopN])
 	return res<=THRESHOLD
 
 
@@ -51,7 +55,7 @@ def generic_phi(scArgs):
 
 def phi(sObjV):
 	res = sObjV[0]/np.mean(sObjV)
-	return (1-res)<=THRESHOLD
+	return ((1-res)<=THRESHOLD)
 
 def dummy(Dummy):
 	return False
