@@ -6,7 +6,7 @@ import pickle
 import numpy as np
 import tsp_crossoverMethods
 from tsp_runGA import tsp_runGA
-import tsp_crossoverMethods, tsp_mutationMethods, tsp_selectionMethods
+import tsp_crossoverMethods, tsp_mutationMethods, tsp_selectionMethods, tsp_reinsMethods
 
 # every 
 
@@ -18,7 +18,18 @@ def load_data(fileName):
 
 def load_configurations(fileName):
     # dummy function for now
-    return [{'NAME':'conf1', 'REPRESENTATION':'REP_PATH', 'NIND':100,'MAXGEN':50,'ELITIST':0.05,'STOP_PERCENTAGE':1,'PR_CROSS':0.95,'PR_MUT':0.05,'LOCALLOOP':None,'CROSSOVER':tsp_crossoverMethods.tsp_orderedCrossover,'MUTATION':tsp_mutationMethods.tsp_inversion,'SELECTION':tsp_selectionMethods.tsp_sus}]
+    return [{'NAME':'conf1', 'REPRESENTATION':'REP_ADJACENCY',
+             'NIND':100,'MAXGEN':50,
+             'STOP_PERCENTAGE':1,'PR_CROSS':0.95,
+             'PR_MUT':0.05,'LOCALLOOP':None,
+             'CROSSOVER':tsp_crossoverMethods.tsp_xaltEdges,
+             'MUTATION':tsp_mutationMethods.tsp_inversion,
+             'SELECTION':tsp_selectionMethods.tsp_sus,
+             'REINSERTION':tsp_reinsMethods.tsp_randomReplacement,
+             'OFFSPRING_FACTOR':9.0,
+             'ELITE_PERCENTAGE':0.1
+             }]
+
 
 def runConfiguration(config,x,y, dataFile ,runsNum):
     print(config)
@@ -29,7 +40,8 @@ def runConfiguration(config,x,y, dataFile ,runsNum):
 					'NIND':config['NIND'],
 					'MAXGEN':config['MAXGEN'],
 					'NVAR':len(x),
-					'ELITIST':config['ELITIST'],
+                    'OFFSPRING_FACTOR':config['OFFSPRING_FACTOR'],
+					'ELITE_PERCENTAGE':config['ELITE_PERCENTAGE'],
 					'STOP_PERCENTAGE':config['STOP_PERCENTAGE'],
 					'PR_CROSS':config['PR_CROSS'],
 					'PR_MUT':config['PR_MUT'],
@@ -38,9 +50,9 @@ def runConfiguration(config,x,y, dataFile ,runsNum):
     runs = []
 
     for i in range(runsNum):
-        runData = tsp_runGA(config['REPRESENTATION'], x,y, config['NIND'], config['MAXGEN'], len(x),
-                         config['ELITIST'], config['STOP_PERCENTAGE'], config['PR_CROSS'],
-                         config['PR_MUT'], config['CROSSOVER'], config['MUTATION'], config['SELECTION'], config['LOCALLOOP'])
+        runData = tsp_runGA(config['REPRESENTATION'], x,y, config['NIND'],config['OFFSPRING_FACTOR'] ,config['MAXGEN'], len(x),
+                         config['ELITE_PERCENTAGE'], config['STOP_PERCENTAGE'], config['PR_CROSS'],
+                         config['PR_MUT'], config['CROSSOVER'], config['MUTATION'], config['SELECTION'],config['REINSERTION'], config['LOCALLOOP'])
         runs.append(runData)
 
     configObj['RUNS']=runs

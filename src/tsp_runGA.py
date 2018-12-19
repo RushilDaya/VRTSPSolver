@@ -27,7 +27,7 @@ def _initPopulation(REPRESENTATION,NIND, NVAR):
 	raise AttributeError('Unknown REPRESENTATION provided')
 
 
-def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_PERCENTAGE, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, LOCALLOOP):
+def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_PERCENTAGE, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION,REINSERTION ,LOCALLOOP):
 	# ELITE_PERCENTAGE is the fraction of best parents which are always preserved
 	# OFFSPRING_FACTOR*NIND is the number of children which need are produced in each generation
 
@@ -41,7 +41,6 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 					'NIND':NIND,
 					'MAXGEN':MAXGEN,
 					'NVAR':NVAR,
-					'ELITIST':ELITIST,
 					'STOP_PERCENTAGE':STOP_PERCENTAGE,
 					'PR_CROSS':PR_CROSS,
 					'PR_MUT':PR_MUT,
@@ -67,6 +66,7 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 	# generational loop
 	runData['GENERATIONAL_DATA'] = {}
 	while (gen<(MAXGEN-1)):
+		print('generation', gen)
 		runData['GENERATIONAL_DATA'][gen]={}
 		sObjV = np.sort(ObjV)
 		best[gen] = np.min(ObjV)

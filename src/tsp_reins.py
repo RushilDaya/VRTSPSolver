@@ -11,7 +11,7 @@ def tsp_reins(REINS_F, parentChrom, offspringChrom,fitnessParents,fitnessChildre
 	(nindParent,tmp) = parentChrom.shape
 	(nindOffspring,tmp) = offspringChrom.shape 
 
-	if len(fitnessParents) != nindParent or len(fitnessChildren) !- nindOffspring:
+	if len(fitnessParents) != nindParent or len(fitnessChildren) != nindOffspring:
 		raise tsp_exceptions.disagree('Dimension mismatch between chromosomes and fitness vectors')
 
 	if nindParent % SUBPOP != 0 or nindOffspring % SUBPOP != 0:
@@ -25,7 +25,7 @@ def tsp_reins(REINS_F, parentChrom, offspringChrom,fitnessParents,fitnessChildre
 	for irun in range(SUBPOP):
 		runParents = parentChrom[nParents*irun:nParents*(irun+1)]
 		runParentFitness = fitnessParents[nParents*irun:nParents*(irun+1)]
-		runOffSpring = runOffSpring[nOffspring*irun:nOffspring*(irun+1)]
+		runOffSpring = offspringChrom[nOffspring*irun:nOffspring*(irun+1)]
 		runOffSpringFitness = fitnessChildren[nOffspring*irun:nOffspring*(irun+1)]
 
 		newChromSub, objVSub = REINS_F( runParents, runOffSpring, runParentFitness, runOffSpringFitness, elitePercentage)

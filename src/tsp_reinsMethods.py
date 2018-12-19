@@ -1,16 +1,16 @@
 import numpy as np 
+import random
 
- REINS_F( runParents, runOffSpring, elitePercentage)
 
-def genitor(parents,offspring, parentFitness, offspringFitness, elitePercentage=0.0):
+def tsp_genitor(parents,offspring, parentFitness, offspringFitness, elitePercentage=0.0):
     # the genitor algorithm simply replaces the worst N parents with the best N offspring
     # this is effectively a proportional form of elitism as the best members are never lost
     # as long as complete replacement is not selected
     # BUT is not true elitism
 
     # elite percentage defines the minimum fraction of the parent population to be preserved
-    nParents, = parents.shape
-    nOffspring, = offspring.shape 
+    nParents,tmp = parents.shape
+    nOffspring,tmp = offspring.shape 
     nElite = int(np.ceil(elitePercentage*nParents))
 
     nToReplace = nParents - nElite  # preserve nElite numbers and replace nToReplace children
@@ -30,13 +30,13 @@ def genitor(parents,offspring, parentFitness, offspringFitness, elitePercentage=
 
     return newChrom.tolist(), newObjV.tolist()
 
-def randomReplacement(Parents,Offspring, parentFitness, offspringFitness, elitePercentage=0.0):
+def tsp_randomReplacement(parents,offspring, parentFitness, offspringFitness, elitePercentage=0.0):
     # randomly replace N members of the parents with N members of the offspring
     # doesnt consider elitism
 
     # elite percentage defines the minimum fraction of the parent population to be preserved
-    nParents, = parents.shape
-    nOffspring, = offspring.shape 
+    nParents,tmp = parents.shape
+    nOffspring,tmp = offspring.shape 
 
     nToReplace = nParents
 
