@@ -94,5 +94,39 @@ def tsp_roundRobin(parents,offspring,parentFitness,offspringFitness,elitePercent
 
     return newChrom, newObjV
 
+def tsp_simpleMuPlusAlpha(parents,offspring,parentFitness,offspringFitness,elitePercentage=0.0):
+    # combines the parents and the offspring
+    # take the best N from combination
+    # always preserves elites
+    nParents,tmp = parents.shape
 
+    combinedFitness = parentFitness.tolist() + offspringFitness.tolist()
+    combinedFitness = np.array(combinedFitness)
+    ranking = np.argsort(combinedFitness)[0:nParents]
+
+    indexParents = [i for i in ranking if i < nParents]
+    indexOffspring = [i - nParents for i in ranking if i >= nParents ] 
+
+    newChrom = parents[indexParents].tolist() +  offspring[indexOffspring].tolist()
+    newObjV = parentFitness[indexParents].tolist() +  offspringFitness[indexOffspring].tolist()
+
+    return newChrom, newObjV
+
+
+
+def tsp_simpleMuCommaAlpha(parents,offspring,parentFitness,offspringFitness,elitePercentage=0.0):
+    # consider only the children take the best N
+    # this is the similar to genitor with no elitism i think
+    nParents,tmp = parents.shape
+    nOffspring,tmp = offspring.shape 
+
+    if nParents > nOffspring:
+        raise AttributeError('Offspring population must be larger than parent population')
+
+    ranking = np.argsort(offspringFitness)[0:nParents] # only consider the N best ones
+
+    newChrom = offspring[ranking].tolist()
+    newObjV =  offspringFitness[ranking].tolist()
+
+    return newChrom, newObjV    
 
