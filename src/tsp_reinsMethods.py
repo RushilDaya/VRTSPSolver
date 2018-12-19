@@ -1,6 +1,11 @@
 import numpy as np 
 import random
 
+ROUND_ROBIN_SIZE = 10
+
+def _getRoundRobinSize():
+    return ROUND_ROBIN_SIZE
+
 
 def tsp_genitor(parents,offspring, parentFitness, offspringFitness, elitePercentage=0.0):
     # the genitor algorithm simply replaces the worst N parents with the best N offspring
@@ -55,3 +60,39 @@ def tsp_randomReplacement(parents,offspring, parentFitness, offspringFitness, el
     newObjV[randomParentIndices] = offspringFitness[randomOffspringIndices]
 
     return newChrom.tolist(), newObjV.tolist()
+
+def _randomIndices(num, numRange): # a random set of indices
+    return random.sample(range(numRange),num)
+
+
+def _tallyWinner(item, competitors):
+    tally = [1 for competitor in competitors if item < competitor ] # if smaller than the item is more fit
+    return sum(tally)
+
+
+def tsp_roundRobin(parents,offspring,parentFitness,offspringFitness,elitePercentage=0.0):
+    # elite percentage doesn't factor in here
+
+    # princple of selection is as follows:
+    # combine parents and offspring
+    # compare each member to ~10 other random members
+    # record how many that member was better than
+    # extract the N members with the best win percentages 
+
+    (nParents,tmp) = parents.shape
+    (nOffspring,tmp) = offspring.shape
+
+    combinedFitness = parentFitness.tolist()+offspringFitness.tolist()
+    combinedFitness = np.array(combinedFitness)
+    numCompetitions = _getRoundRobinSize()
+    resultsVector = [_tallyWinner(combinedFitness[i], combinedFitness[_randomIndices(numCompetitions,len(combinedFitness))] ) for i in range(len(combinedFitness))]
+    rankings = np.argsort(-np.array(resultsVector))[0:nParents]
+    indexParents = [i for i in rankings if i < nParents]
+    indexOffspring = [i - nParents for i in rankings if i >= nParents ] 
+    newChrom = parents[indexParents].tolist() +  offspring[indexOffspring].tolist()
+    newObjV = parentFitness[indexParents].tolist() +  offspringFitness[indexOffspring].tolist()
+
+    return newChrom, newObjV
+
+
+

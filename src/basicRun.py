@@ -20,14 +20,14 @@ def load_data(fileName):
 def load_configurations(fileName):
     # dummy function for now
     return [{'NAME':'conf1', 'REPRESENTATION':'REP_ADJACENCY',
-             'NIND':100,'MAXGEN':200,
+             'NIND':100,'MAXGEN':50,
              'STOP_PERCENTAGE':1,'PR_CROSS':0.95,
              'PR_MUT':0.9,'LOCALLOOP':None,
              'CROSSOVER':tsp_crossoverMethods.tsp_greedyHeuristicCrossover,
              'MUTATION':tsp_mutationMethods.tsp_inversion,
              'SELECTION':tsp_selectionMethods.tsp_sus,
-             'REINSERTION':tsp_reinsMethods.tsp_genitor,
-             'OFFSPRING_FACTOR':1.0,
+             'REINSERTION':tsp_reinsMethods.tsp_roundRobin,
+             'OFFSPRING_FACTOR':2.0,
              'ELITE_PERCENTAGE':0.1
              }]
 
@@ -65,10 +65,9 @@ def runConfiguration(config,x,y, dataFile ,runsNum):
 
 
 def main():
-    DATA_NAME = '../resources/datasets/rondrit100.tsp'
+    DATA_NAME = '../resources/datasets/rondrit127.tsp'
     configList = load_configurations('config.yaml')
     x,y = load_data(DATA_NAME)
-    print(x,y)
     runsPerConfig = 1
     [ runConfiguration(configuration, x,y, DATA_NAME, runsPerConfig)  for configuration in configList] 
     
