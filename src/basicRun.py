@@ -7,7 +7,7 @@ import numpy as np
 import inputData
 import tsp_crossoverMethods
 from tsp_runGA import tsp_runGA
-import tsp_crossoverMethods, tsp_mutationMethods, tsp_selectionMethods, tsp_reinsMethods
+import tsp_crossoverMethods, tsp_mutationMethods, tsp_selectionMethods, tsp_reinsMethods, tsp_improvePopulationMethods
 
 # every 
 
@@ -19,22 +19,22 @@ def load_data(fileName):
 
 def load_configurations(fileName):
     # dummy function for now
-    return [{'NAME':'conf1', 'REPRESENTATION':'REP_ADJACENCY',
-             'NIND':100,'MAXGEN':10,
+    return [{'NAME':'conf1', 'REPRESENTATION':'REP_PATH',
+             'NIND':50,'MAXGEN':25,
              'STOP_PERCENTAGE':1,'PR_CROSS':0.95,
-             'PR_MUT':0.9,'LOCALLOOP':None,
-             'CROSSOVER':tsp_crossoverMethods.tsp_greedyHeuristicCrossover,
+             'PR_MUT':1.0,'IMPROVE_POP':tsp_improvePopulationMethods.tsp_improvePath,
+             'CROSSOVER':tsp_crossoverMethods.tsp_sequentialConstructiveCrossover,
              'MUTATION':tsp_mutationMethods.tsp_inversion,
              'SELECTION':tsp_selectionMethods.tsp_sus,
-             'REINSERTION':tsp_reinsMethods.tsp_simpleMuCommaAlpha,
-             'OFFSPRING_FACTOR':1,
+             'REINSERTION':tsp_reinsMethods.tsp_genitor,
+             'OFFSPRING_FACTOR':2.0,
              'ELITE_PERCENTAGE':0.1
              }]
 
 
 def runConfiguration(config,x,y, dataFile ,runsNum):
     print(config)
-    outputFileName = 'case.pkl'
+    outputFileName = 'withNone.pkl'
     configObj = {}
     configObj['PARAMETERS']={
                     'REPRESENTATION':config['REPRESENTATION'],
@@ -46,14 +46,14 @@ def runConfiguration(config,x,y, dataFile ,runsNum):
 					'STOP_PERCENTAGE':config['STOP_PERCENTAGE'],
 					'PR_CROSS':config['PR_CROSS'],
 					'PR_MUT':config['PR_MUT'],
-					'LOCALLOOP':config['LOCALLOOP']        
+					'IMPROVE_POP':config['IMPROVE_POP']        
     }
     runs = []
 
     for i in range(runsNum):
         runData = tsp_runGA(config['REPRESENTATION'], x,y, config['NIND'],config['OFFSPRING_FACTOR'] ,config['MAXGEN'], len(x),
                          config['ELITE_PERCENTAGE'], config['STOP_PERCENTAGE'], config['PR_CROSS'],
-                         config['PR_MUT'], config['CROSSOVER'], config['MUTATION'], config['SELECTION'],config['REINSERTION'], config['LOCALLOOP'])
+                         config['PR_MUT'], config['CROSSOVER'], config['MUTATION'], config['SELECTION'],config['REINSERTION'], config['IMPROVE_POP'])
         runs.append(runData)
 
     configObj['RUNS']=runs
@@ -65,7 +65,7 @@ def runConfiguration(config,x,y, dataFile ,runsNum):
 
 
 def main():
-    DATA_NAME = '../resources/datasets/rondrit051.tsp'
+    DATA_NAME = '../resources/datasets/rondrit127.tsp'
     configList = load_configurations('config.yaml')
     x,y = load_data(DATA_NAME)
     runsPerConfig = 1

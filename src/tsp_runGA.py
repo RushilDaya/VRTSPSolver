@@ -27,7 +27,7 @@ def _initPopulation(REPRESENTATION,NIND, NVAR):
 	raise AttributeError('Unknown REPRESENTATION provided')
 
 
-def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_PERCENTAGE, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION,REINSERTION ,LOCALLOOP):
+def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_PERCENTAGE, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION,REINSERTION ,IMPROVE_POP):
 	# ELITE_PERCENTAGE is the fraction of best parents which are always preserved
 	# OFFSPRING_FACTOR*NIND is the number of children which need are produced in each generation
 
@@ -44,7 +44,7 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 					'STOP_PERCENTAGE':STOP_PERCENTAGE,
 					'PR_CROSS':PR_CROSS,
 					'PR_MUT':PR_MUT,
-					'LOCALLOOP':LOCALLOOP
+					'IMPROVE_POP':IMPROVE_POP
 			  	}			
 			  }
 	mean_fits = np.zeros(MAXGEN)
@@ -93,9 +93,12 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 		ObjVSel = tsp_fun.tsp_fun(REPRESENTATION,SelCh,Dist)
 		#reinsert offspring into population
 		Chrom,ObjV = tsp_reins.tsp_reins(REINSERTION, Chrom,SelCh,ObjV,ObjVSel,ELITE_PERCENTAGE)
-		runData['GENERATIONAL_DATA'][gen]['REINSERTED_CHROMOSOMES'] = Chrom
 
-	#	Chrom = tsp_ImprovePopulation.tsp_ImprovePopulation(NIND, NVAR, Chrom, LOCALLOOP, Dist)
+		Chrom = tsp_improvePopulation.tsp_improvePopulation(REPRESENTATION, IMPROVE_POP, Chrom, Dist)
+		ObjV = tsp_fun.tsp_fun(REPRESENTATION,Chrom,Dist)
+		#NOTE: the recalculation needs to be done after improvement @victor if you have a more efficient method please change this
+
+		runData['GENERATIONAL_DATA'][gen]['REINSERTED_CHROMOSOMES'] = Chrom
 		#increment generation counter
 		gen+=1
 
