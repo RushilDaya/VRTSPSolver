@@ -27,7 +27,9 @@ def _initPopulation(REPRESENTATION,NIND, NVAR):
 	raise AttributeError('Unknown REPRESENTATION provided')
 
 
-def tsp_runGA(REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, LOCALLOOP):
+def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_PERCENTAGE, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, LOCALLOOP):
+	# ELITE_PERCENTAGE is the fraction of best parents which are always preserved
+	# OFFSPRING_FACTOR*NIND is the number of children which need are produced in each generation
 
 	runData = {
 				'NODES':{
@@ -46,7 +48,6 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE,
 					'LOCALLOOP':LOCALLOOP
 			  	}			
 			  }
-	GGAP = (1 - ELITIST)
 	mean_fits = np.zeros(MAXGEN)
 	worst = np.zeros(MAXGEN)
 	Dist = np.matrix(np.zeros((NVAR,NVAR)))
@@ -82,7 +83,7 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE,
 		FitnV = tsp_ranking.tsp_ranking(ObjV) 
 		runData['GENERATIONAL_DATA'][gen]['STARTING_FITNESS'] = ObjV
 		#select individuals for breeding
-		SelCh = tsp_select.tsp_select(SELECTION, Chrom, FitnV, GGAP)
+		SelCh = tsp_select.tsp_select(SELECTION, Chrom, FitnV, OFFSPRING_FACTOR)
 		runData['GENERATIONAL_DATA'][gen]['SELECTED_CHROMOSOMES'] = SelCh
 		#recombine individuals (crossover)
 		SelCh = tsp_recombin.tsp_recombin(REPRESENTATION,CROSSOVER,SelCh,PR_CROSS,DISTANCE_MATRIX=Dist) # Dist is used by some crossover methods( Heuristics)
@@ -92,9 +93,9 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE,
 		#evaluate offspring, call objective function
 		ObjVSel = tsp_fun.tsp_fun(REPRESENTATION,SelCh,Dist)
 		#reinsert offspring into population
-		Chrom,ObjV = tsp_reins.tsp_reins(Chrom,SelCh,1,[1],ObjV,ObjVSel)
+		Chrom,ObjV = tsp_reins.tsp_reins(REINSERTION, Chrom,SelCh,ObjV,ObjVSel,ELITE_PERCENTAGE)
 		runData['GENERATIONAL_DATA'][gen]['REINSERTED_CHROMOSOMES'] = Chrom
-	            
+
 	#	Chrom = tsp_ImprovePopulation.tsp_ImprovePopulation(NIND, NVAR, Chrom, LOCALLOOP, Dist)
 		#increment generation counter
 		gen+=1
