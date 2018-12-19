@@ -66,7 +66,6 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 	# generational loop
 	runData['GENERATIONAL_DATA'] = {}
 	while (gen<(MAXGEN-1)):
-		print('generation', gen)
 		runData['GENERATIONAL_DATA'][gen]={}
 		sObjV = np.sort(ObjV)
 		best[gen] = np.min(ObjV)
@@ -84,12 +83,12 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 		runData['GENERATIONAL_DATA'][gen]['STARTING_FITNESS'] = ObjV
 		#select individuals for breeding
 		SelCh = tsp_select.tsp_select(SELECTION, Chrom, FitnV, OFFSPRING_FACTOR)
-		runData['GENERATIONAL_DATA'][gen]['SELECTED_CHROMOSOMES'] = SelCh
+		#runData['GENERATIONAL_DATA'][gen]['SELECTED_CHROMOSOMES'] = SelCh
 		#recombine individuals (crossover)
 		SelCh = tsp_recombin.tsp_recombin(REPRESENTATION,CROSSOVER,SelCh,PR_CROSS,DISTANCE_MATRIX=Dist) # Dist is used by some crossover methods( Heuristics)
-		runData['GENERATIONAL_DATA'][gen]['RECOMBINED_CHROMOSOMES'] = SelCh
+		#runData['GENERATIONAL_DATA'][gen]['RECOMBINED_CHROMOSOMES'] = SelCh
 		SelCh = tsp_mutate.tsp_mutate(REPRESENTATION,MUTATION,SelCh,PR_MUT)
-		runData['GENERATIONAL_DATA'][gen]['MUTATED_CHROMOSOMES'] = SelCh
+		#runData['GENERATIONAL_DATA'][gen]['MUTATED_CHROMOSOMES'] = SelCh
 		#evaluate offspring, call objective function
 		ObjVSel = tsp_fun.tsp_fun(REPRESENTATION,SelCh,Dist)
 		#reinsert offspring into population

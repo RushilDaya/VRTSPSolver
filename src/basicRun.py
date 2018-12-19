@@ -4,6 +4,7 @@
 
 import pickle
 import numpy as np
+import inputData
 import tsp_crossoverMethods
 from tsp_runGA import tsp_runGA
 import tsp_crossoverMethods, tsp_mutationMethods, tsp_selectionMethods, tsp_reinsMethods
@@ -12,28 +13,28 @@ import tsp_crossoverMethods, tsp_mutationMethods, tsp_selectionMethods, tsp_rein
 
 def load_data(fileName):
     # dummy function for now
-    x = np.array([273.46509, 367.34973, 378.83914, 225.10242, 179.65437, 272.98428, 20.70829,  31.18826, 441.09842, 215.28487, 220.84784, 153.61868, 251.23114, 339.36380, 141.00000, 143.00000])
-    y = np.array([204.95761, 5.14920, 86.38704, 170.73392 ,211.91306, 97.19602 , 227.85622, 25.77590, 162.63313, 30.03942, 112.75235, 31.05856, 240.80257, 209.36363,143.00000,85.00000])
-    return x,y
+    #x = np.array([273.46509, 367.34973, 378.83914, 225.10242, 179.65437, 272.98428, 20.70829,  31.18826, 441.09842, 215.28487, 220.84784, 153.61868, 251.23114, 339.36380, 141.00000, 143.00000])
+    #y = np.array([204.95761, 5.14920, 86.38704, 170.73392 ,211.91306, 97.19602 , 227.85622, 25.77590, 162.63313, 30.03942, 112.75235, 31.05856, 240.80257, 209.36363,143.00000,85.00000])
+    return inputData.inputData(fileName)
 
 def load_configurations(fileName):
     # dummy function for now
     return [{'NAME':'conf1', 'REPRESENTATION':'REP_ADJACENCY',
-             'NIND':100,'MAXGEN':50,
+             'NIND':100,'MAXGEN':200,
              'STOP_PERCENTAGE':1,'PR_CROSS':0.95,
-             'PR_MUT':0.05,'LOCALLOOP':None,
-             'CROSSOVER':tsp_crossoverMethods.tsp_xaltEdges,
+             'PR_MUT':0.9,'LOCALLOOP':None,
+             'CROSSOVER':tsp_crossoverMethods.tsp_greedyHeuristicCrossover,
              'MUTATION':tsp_mutationMethods.tsp_inversion,
              'SELECTION':tsp_selectionMethods.tsp_sus,
-             'REINSERTION':tsp_reinsMethods.tsp_randomReplacement,
-             'OFFSPRING_FACTOR':9.0,
+             'REINSERTION':tsp_reinsMethods.tsp_genitor,
+             'OFFSPRING_FACTOR':1.0,
              'ELITE_PERCENTAGE':0.1
              }]
 
 
 def runConfiguration(config,x,y, dataFile ,runsNum):
     print(config)
-    outputFileName = dataFile.split('.')[0] + '_' + config['NAME'] + '.pkl'
+    outputFileName = 'case.pkl'
     configObj = {}
     configObj['PARAMETERS']={
                     'REPRESENTATION':config['REPRESENTATION'],
@@ -64,10 +65,11 @@ def runConfiguration(config,x,y, dataFile ,runsNum):
 
 
 def main():
-    DATA_NAME = 'customData.txt'
+    DATA_NAME = '../resources/datasets/rondrit100.tsp'
     configList = load_configurations('config.yaml')
     x,y = load_data(DATA_NAME)
-    runsPerConfig = 10
+    print(x,y)
+    runsPerConfig = 1
     [ runConfiguration(configuration, x,y, DATA_NAME, runsPerConfig)  for configuration in configList] 
     
 
