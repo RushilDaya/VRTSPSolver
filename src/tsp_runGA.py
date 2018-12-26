@@ -53,7 +53,6 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 	runData['GENERATIONAL_DATA'] = {}
 	runData['BREAK'] = MAXGEN
 	for gen in range(MAXGEN):
-
 		sObjV = np.sort(ObjV)
 		best[gen] = np.min(ObjV)
 		minimum = best[gen]
