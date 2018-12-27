@@ -8,7 +8,7 @@ from concurrent.futures import ProcessPoolExecutor
 
 # CONSTANTS
 N_CORES = 4
-REPETITIONS = 5
+REPETITIONS = 3
 
 # MAPPING
 mutation_mappings = tsp_mutationMethods.mapping()
@@ -40,7 +40,7 @@ with open(pathCnf+"config.yml") as ymlfile:
 
 
 keys = list(cfg.keys())
-dataFiles = ['rondrit023.tsp','rondrit048.tsp']
+dataFiles = ['rondrit048.tsp']
 
 for currentConfig in keys:
 	for fileName in dataFiles:
