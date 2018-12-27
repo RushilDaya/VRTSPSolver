@@ -4,6 +4,11 @@ from mixins import _startAtOne
 
 # all these methods assume path representation
 
+def mapping():
+	function_mappings = {'tsp_none': tsp_none, 'tsp_improvePath':tsp_improvePath}
+	return function_mappings
+
+
 def tsp_none(path, Dist=None):
     # used when heuristic is not wanted
     return path

@@ -32,7 +32,6 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 	# OFFSPRING_FACTOR*NIND is the number of children which need are produced in each generation
 
 	runData = {}
-	GGAP = (1 - ELITIST)
 	mean_fits = np.zeros(MAXGEN)
 	worst = np.zeros(MAXGEN)
 	Dist = np.matrix(np.zeros((NVAR,NVAR)))

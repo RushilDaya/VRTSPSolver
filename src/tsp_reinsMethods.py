@@ -6,6 +6,11 @@ ROUND_ROBIN_SIZE = 10
 def _getRoundRobinSize():
     return ROUND_ROBIN_SIZE
 
+def mapping():
+	function_mappings = {'tsp_genitor': tsp_genitor,'tsp_randomReplacement': tsp_randomReplacement,
+                         'tsp_roundRobin':tsp_roundRobin,'tsp_simpleMuCommaAlpha': tsp_simpleMuCommaAlpha,
+                         'tsp_simpleMuPlusAlpha':tsp_simpleMuPlusAlpha}
+	return function_mappings
 
 def tsp_genitor(parents,offspring, parentFitness, offspringFitness, elitePercentage=0.0):
     # the genitor algorithm simply replaces the worst N parents with the best N offspring
