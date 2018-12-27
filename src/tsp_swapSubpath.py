@@ -2,7 +2,7 @@ import numpy as np
 
 def tsp_swapSubpath(ncities, path, start, length):
 
-	i = start
+	i = start 
 	j = np.mod((start + length),ncities)
 	#j = np.mod((start-1 + length-1), ncities) + 1
 	
