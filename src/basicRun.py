@@ -21,9 +21,13 @@ def load_configurations(fileName):
     return [{'NAME':'conf1', 'REPRESENTATION':'REP_PATH', 'NIND':100,'MAXGEN':50,'ELITIST':0.05,'STOP_PERCENTAGE':1,'PR_CROSS':0.95,'PR_MUT':0.05,'LOCALLOOP':None,'CROSSOVER':tsp_crossoverMethods.tsp_orderedCrossover,'MUTATION':tsp_mutationMethods.tsp_inversion,'SELECTION':tsp_selectionMethods.tsp_sus}]
 
 def runConfiguration(config,x,y, dataFile ,runsNum):
-    print(config)
     outputFileName = dataFile.split('.')[0] + '_' + config['NAME'] + '.pkl'
     configObj = {}
+    
+    configObj['NODES']={
+        'X':x,
+        'Y':y
+    }
     configObj['PARAMETERS']={
                     'REPRESENTATION':config['REPRESENTATION'],
 					'NIND':config['NIND'],

@@ -9,17 +9,19 @@ config1:
  LOCALLOOP : 0
  CROSSOVER : tsp_xaltEdges
  MUTATION : tsp_inversion
+ STOPCRITERIA : bestWorst
  SELECTION : tsp_sus
 
 config2:
  REPRESENTATION : REP_ADJACENCY
- NIND : 50
+ NIND : 20
  MAXGEN : 100
- ELITIST : 0.05
+ ELITIST : 0.20
  STOP_PERCENTAGE : 0.95
  PR_CROSS : 0.95
- PR_MUT : 0.05
+ PR_MUT : 0.5
  LOCALLOOP : 0
  CROSSOVER : tsp_xaltEdges
  MUTATION : tsp_inversion
+ STOPCRITERIA : bestWorst
  SELECTION : tsp_sus
