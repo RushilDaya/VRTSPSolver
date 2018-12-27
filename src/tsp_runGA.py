@@ -53,27 +53,36 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE,
 
 	runData = {}
 	GGAP = (1 - ELITIST)
-	mean_fits = np.zeros(MAXGEN)
-	worst = np.zeros(MAXGEN)
 	Dist = _distInit(x,y,NVAR)
 	# initialize population
 	Chrom = _initPopulation(REPRESENTATION, NIND, NVAR)
 	Chrom[-1] = _minimalInitialPath(Dist, REPRESENTATION)
 	runData['INITIAL_CHROMOSOME']=Chrom
-	# number of individuals of equal fitness needed to stop
-	#stopN = int(np.ceil(STOP_PERCENTAGE*NIND))-1
+
 	# evaluate initial population
 	ObjV = tsp_fun.tsp_fun(REPRESENTATION, Chrom, Dist)
-	best = np.zeros(MAXGEN)
+	
 	# generational loop
 	#runData['GENERATIONAL_DATA'] = {}
+	best = []#np.zeros(MAXGEN)
+	mean_fits = []#np.zeros(MAXGEN)
+	worst = []#np.zeros(MAXGEN)
+	
+	# STOP CRITERIA 
+	# number of individuals of equal fitness needed to stop
+	#stopN = int(np.ceil(STOP_PERCENTAGE*NIND))-1
+	
 	for gen in range(MAXGEN):
 		#runData['GENERATIONAL_DATA'][gen]={}
-		sObjV = np.sort(ObjV)
-		best[gen] = np.min(ObjV)
-		minimum = best[gen]
-		mean_fits[gen] = np.mean(ObjV)
-		worst[gen] = np.max(ObjV)
+		if ((MAXGEN%250)==0):
+			sObjV = np.sort(ObjV)
+			minimum = np.min(ObjV)
+			#best[gen] = minimum
+			best.append(minimum)
+			#mean_fits[gen] = np.mean(ObjV)
+			mean_fits.append(np.mean(ObjV))
+			#worst[gen] = np.max(ObjV)
+			worst.append(np.max(ObjV))
 		
 		#visualizeTSP(x,y,adj2path(Chrom(t,:)), minimum, ah1, gen, best, mean_fits, worst, ah2, ObjV, NIND, ah3);
 
@@ -100,7 +109,8 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE,
 		#runData['GENERATIONAL_DATA'][gen]['REINSERTED_CHROMOSOMES'] = Chrom
 							
 		#Chrom = tsp_ImprovePopulation.tsp_ImprovePopulation(NIND, NVAR, Chrom, LOCALLOOP, Dist)
-
+	
+	runData['FINAL_CHROMOSOME']=Chrom
 	runData['RESULTS'] = {
 		'BEST':best,
 		'WORST':worst,
