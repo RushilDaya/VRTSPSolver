@@ -38,7 +38,7 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 	for i in range(len(x)):
 		for j in range(len(y)):
 			Dist[i,j] = np.sqrt((x[i]-x[j])**2+(y[i]-y[j])**2)
-
+	
 	# initialize population
 	Chrom = _initPopulation(REPRESENTATION, NIND, NVAR)
 	runData['INITIAL_CHROMOSOME']=Chrom
@@ -53,11 +53,14 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 	runData['GENERATIONAL_DATA'] = {}
 	runData['BREAK'] = MAXGEN
 	for gen in range(MAXGEN):
+
 		sObjV = np.sort(ObjV)
 		best[gen] = np.min(ObjV)
 		minimum = best[gen]
 		mean_fits[gen] = np.mean(ObjV)
 		worst[gen] = np.max(ObjV)
+
+
 		
 		scDepth = 150
 		scArgs = [best[:(gen+1)],scDepth,(sObjV/np.max(sObjV)) ,stopN]
@@ -68,11 +71,10 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 			break
 
 		runData['GENERATIONAL_DATA'][gen]={}
-		runData['GENERATIONAL_DATA'][gen]['CHROMOSOME'] = Chrom
+		runData['GENERATIONAL_DATA'][gen]['FITNESS'] = ObjV # allows us to plot fitness histograms
 
 		#assign fitness values to entire population
 		FitnV = tsp_ranking.tsp_ranking(ObjV) 
-		runData['GENERATIONAL_DATA'][gen]['FITNESS'] = ObjV
 
 		#select individuals for breeding
 		SelCh = tsp_select.tsp_select(SELECTION, Chrom, FitnV, OFFSPRING_FACTOR)
@@ -87,6 +89,11 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 		Chrom = tsp_improvePopulation.tsp_improvePopulation(REPRESENTATION, IMPROVE_POP, Chrom, Dist)
 		ObjV = tsp_fun.tsp_fun(REPRESENTATION,Chrom,Dist)
 		#NOTE: the recalculation needs to be done after improvement @victor if you have a more efficient method please change this
+		print(gen)
+
+	runData['GENERATIONAL_DATA'][gen]={}
+	runData['GENERATIONAL_DATA'][gen]['CHROMOSOME'] = Chrom
+	runData['GENERATIONAL_DATA'][gen]['FITNESS'] = ObjV
 
 	runData['RESULTS'] = {
 		'BEST':best,
