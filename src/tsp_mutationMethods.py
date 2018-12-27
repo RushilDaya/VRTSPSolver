@@ -4,14 +4,7 @@ import tsp_adj2path
 import numpy as np
 from mixins import _startAtOne
 
-MAX_ITER = 1
-INNER_MUT_PROB = 10
-
-def get_MaxIter():
-	return MAX_ITER
-
-def set_MaxIter(value):
-	MAX_ITER = value
+INNER_MUT_PROB = 0.15
 
 def get_InnerMutProb():
 	return INNER_MUT_PROB
@@ -64,11 +57,11 @@ def tsp_swap(oldChrome, REPRESENTATION):
 	return _returnRep(tempChrome,REPRESENTATION)
 
 # low level operator to perform repeted swap mutation
-def tsp_nSwap(oldChrome, REPRESENTATION):
+def tsp_nSwap(oldChrome, REPRESENTATION, MAX_ITER = .2):
 	# Perform up to MAX_ITER swaps in the chromosome with a probability of ProbSwap
 
 	tempChrome = _selectRep(oldChrome,REPRESENTATION)
-
+	MAX_ITER = oldChrome * MAX_ITER
 	for i in range(MAX_ITER):
 		x,y = random.sample(range(len(tempChrome)), 2)
 		if random.random()<=INNER_MUT_PROB:
