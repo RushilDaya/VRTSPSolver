@@ -35,7 +35,7 @@ def _initPopulation(REPRESENTATION, NIND, NVAR):
 		popList = list(range(1,NVAR+1))
 	elif REPRESENTATION == 'REP_PATH':
 		popList = list(range(2,NVAR+1))	# start all path representations at node 1 for consistency
-	else
+	else:
 		raise AttributeError('Unknown REPRESENTATION provided')
 	
 	for row in range(NIND):
@@ -74,7 +74,7 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE,
 	
 	for gen in range(MAXGEN):
 		#runData['GENERATIONAL_DATA'][gen]={}
-		if ((MAXGEN%250)==0):
+		if ((gen%250)==0):
 			sObjV = np.sort(ObjV)
 			minimum = np.min(ObjV)
 			#best[gen] = minimum
