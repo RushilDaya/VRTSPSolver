@@ -17,11 +17,11 @@ def analyseRun(run):
     plt.plot(x,worst, color='g')
     plt.show()
     
-def analyseBestPath(run, representation):
+def analyseBestPath(run, representation,x,y):
     genData = run['GENERATIONAL_DATA']
     lastRun = max(genData.keys())
-    best = genData[lastRun]['START_GENERATION_CHROMOSOMES'][genData[lastRun]['STARTING_FITNESS'].argmin()]
-    plotRoute(run['NODES']['X'],run['NODES']['Y'],best, representation)
+    best = genData[lastRun]['CHROMOSOME'][genData[lastRun]['FITNESS'].argmin()]
+    plotRoute(x,y,best, representation)
 
 
 
@@ -31,7 +31,9 @@ def checkResults(fileName):
     print(confObj['PARAMETERS'])
     representation = confObj['PARAMETERS']['REPRESENTATION']
     runs = confObj['RUNS']
-    [(analyseRun(run),analyseBestPath(run, representation)) for run in runs]
+    x = confObj['NODES']['X']
+    y = confObj['NODES']['Y']
+    [(analyseRun(run),analyseBestPath(run, representation, x,y)) for run in runs]
 
     return True
 

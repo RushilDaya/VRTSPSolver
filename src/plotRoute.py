@@ -15,7 +15,6 @@ def plotRoute(nodesX,nodesY,pathRep, REPRESENTATION):
         pathRep = tsp_adj2path(pathRep.tolist()[0])
         
     NVAR = len(pathRep)
-    print(pathRep)
     for i in range(NVAR-1):
         x1 = nodesX[pathRep[i]-1]
         y1 = nodesY[pathRep[i]-1]
