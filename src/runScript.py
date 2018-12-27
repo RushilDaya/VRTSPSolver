@@ -22,8 +22,8 @@ pathData = '../resources/datasets/'
 
 # FUNCTIONS
 def runGAByProccess(argsTSP):
-	x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, STOPCRITERIA, LOCALLOOP = argsTSP
-	res = tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, STOPCRITERIA, LOCALLOOP)
+	REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION,STOPCRITERIA ,LOCALLOOP = argsTSP
+	res = tsp_runGA(REPRESENTATION, x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION,STOPCRITERIA, LOCALLOOP)
 	return res
 
 def mp(func, args, cores, currentConfig):
@@ -54,6 +54,7 @@ for sc in stopCriterias:
 		tsp_stopCriteria.setThreshold(0)
 	##SET PARAMETERS
 	############################################################
+	REPRESENTATION = cfg[currentConfig]['REPRESENTATION']
 	NIND = cfg[currentConfig]['NIND']
 	MAXGEN = cfg[currentConfig]['MAXGEN']
 	ELITIST = cfg[currentConfig]['ELITIST']
@@ -77,9 +78,8 @@ for sc in stopCriterias:
 	############################################################
 
 	##Multiprocess GA Run
-	argsTSP = [x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, STOPCRITERIA, LOCALLOOP]
-	#print (STOPCRITERIA_TXT)
-	#res = tsp_runGA(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION, STOPCRITERIA, LOCALLOOP)
+	argsTSP = [REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION,STOPCRITERIA, LOCALLOOP]
+	print (argsTSP)
 	res = mp(runGAByProccess, [argsTSP for i in range(REPETITIONS)], N_CORES, currentConfig)
 	#print (res)
 	## Write to File Output res
