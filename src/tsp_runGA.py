@@ -27,10 +27,11 @@ def _initPopulation(REPRESENTATION,NIND, NVAR):
 	raise AttributeError('Unknown REPRESENTATION provided')
 
 
-def tsp_runGA(REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION,STOPCRITERIA, LOCALLOOP):
+def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_PERCENTAGE, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION,STOPCRITERIA,REINSERTION ,IMPROVE_POP):
+	# ELITE_PERCENTAGE is the fraction of best parents which are always preserved
+	# OFFSPRING_FACTOR*NIND is the number of children which need are produced in each generation
 
 	runData = {}
-	GGAP = (1 - ELITIST)
 	mean_fits = np.zeros(MAXGEN)
 	worst = np.zeros(MAXGEN)
 	Dist = np.matrix(np.zeros((NVAR,NVAR)))
@@ -74,18 +75,18 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE,
 		runData['GENERATIONAL_DATA'][gen]['FITNESS'] = ObjV
 
 		#select individuals for breeding
-		SelCh = tsp_select.tsp_select(SELECTION, Chrom, FitnV, GGAP)
+		SelCh = tsp_select.tsp_select(SELECTION, Chrom, FitnV, OFFSPRING_FACTOR)
 		#recombine individuals (crossover)
 		SelCh = tsp_recombin.tsp_recombin(REPRESENTATION,CROSSOVER,SelCh,PR_CROSS,DISTANCE_MATRIX=Dist) # Dist is used by some crossover methods( Heuristics)
 		SelCh = tsp_mutate.tsp_mutate(REPRESENTATION,MUTATION,SelCh,PR_MUT)
 		#evaluate offspring, call objective function
 		ObjVSel = tsp_fun.tsp_fun(REPRESENTATION,SelCh,Dist)
 		#reinsert offspring into population
-		Chrom,ObjV = tsp_reins.tsp_reins(Chrom,SelCh,1,[1],ObjV,ObjVSel)
+		Chrom,ObjV = tsp_reins.tsp_reins(REINSERTION, Chrom,SelCh,ObjV,ObjVSel,ELITE_PERCENTAGE)
 
-
-		# Chrom = tsp_ImprovePopulation.tsp_ImprovePopulation(NIND, NVAR, Chrom, LOCALLOOP, Dist)
-
+		Chrom = tsp_improvePopulation.tsp_improvePopulation(REPRESENTATION, IMPROVE_POP, Chrom, Dist)
+		ObjV = tsp_fun.tsp_fun(REPRESENTATION,Chrom,Dist)
+		#NOTE: the recalculation needs to be done after improvement @victor if you have a more efficient method please change this
 
 	runData['RESULTS'] = {
 		'BEST':best,
