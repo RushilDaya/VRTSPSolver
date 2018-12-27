@@ -9,4 +9,5 @@ config1:
  LOCALLOOP : 0
  CROSSOVER : tsp_xaltEdges
  MUTATION : tsp_inversion
+ STOPCRITERIA : bestWorst
  SELECTION : tsp_sus
