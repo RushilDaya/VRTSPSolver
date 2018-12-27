@@ -9,7 +9,7 @@ MoAI TSP Genetic Algorithm Project
 ### Rushil
 1. Stop Criteria Review
 
-##Original Task
+## Original Task
 1. ~~On Toledo, you can find the GA Toolbox, the template program and tutorials about Matlab. Test the Matlab program to solve a TSP.~~
 2. Perform a limited set of experiments by varying the parameters of the existing genetic algorithm (population size, probabilities, . . . ) and evaluate the performance.
 3. Implement a stopping criterion that avoids that rather useless iterations (generations) are computed.
@@ -17,7 +17,7 @@ MoAI TSP Genetic Algorithm Project
 5. Test to which extent a local optimisation heuristic can improve the result.
 6. Test the performance of your algorithm using some benchmark problems (available on Toledo) and critically evaluate the achieved performance.
 7. You should select at least one task from the list below:
-	- (a) ~~Implement and use two other parent selection methods, i.e. fitness proportional selection and tournament selection.~~ Compare the results with those obtained using the default rank- based selection.
+  - (a) ~~Implement and use two other parent selection methods, i.e. fitness proportional selection and tournament selection.~~ Compare the results with those obtained using the default rank- based selection.
   - (b) ~~Implement one survivor selection strategy (besides the already implemented elitism). Per- form experiments and evaluate the results.~~
   - (c) Implement and use one of the techniques aimed at preserving population diversity (e.g. subpopulations/islands, crowding, . . . ). Perform experiments and evaluate the results.
   - (d) Incorporate an adaptive or self-adaptive parameter control strategy (e.g. parameters that depend on the state of the population, parameters that co-evolve with the population,...). Perform experiments and evaluate the results.
@@ -25,7 +25,7 @@ MoAI TSP Genetic Algorithm Project
 Note: A carefully written report of ≈ 10 pages can contain a lot of information, if well written. Be precise but concise! Do not repeat information from the handbook or slides.
 
 
-###Plan For Genetic Algorithms Project.
+### Plan For Genetic Algorithms Project.
 1. ~~Get familiar with the genetic algorithm toolbox and the tsp code, run basic experiments, no need to record results at this stage. (2 hours).~~
 2. Setup a pipeline for automating the recording of results and changing parameters, this will save a lot of time if we need to run ~ 50 tests for each configuration and make gradual adjustments to ~10 parameters (5 hours).
 3. Research stopping criteria, implement the best one. (3 hours).
