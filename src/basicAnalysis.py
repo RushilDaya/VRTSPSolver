@@ -20,7 +20,7 @@ def analyseRun(run):
 def analyseBestPath(run, representation,x,y):
     genData = run['GENERATIONAL_DATA']
     lastRun = max(genData.keys())
-    best = genData[lastRun]['START_GENERATION_CHROMOSOMES'][genData[lastRun]['STARTING_FITNESS'].argmin()]
+    best = genData[lastRun]['CHROMOSOME'][genData[lastRun]['FITNESS'].argmin()]
     plotRoute(x,y,best, representation)
 
 

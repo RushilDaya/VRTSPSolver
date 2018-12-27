@@ -47,8 +47,7 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE,
 	ObjV = tsp_fun.tsp_fun(REPRESENTATION, Chrom,Dist)
 	best = np.zeros(MAXGEN)
 	
-	# set Threshold
-	#tsp_stopCriteria.setThreshold((1.119))
+
 	# generational loop
 	runData['GENERATIONAL_DATA'] = {}
 	runData['BREAK'] = MAXGEN
@@ -58,35 +57,33 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE,
 		minimum = best[gen]
 		mean_fits[gen] = np.mean(ObjV)
 		worst[gen] = np.max(ObjV)
-
-		#visualizeTSP(x,y,adj2path(Chrom(t,:)), minimum, ah1, gen, best, mean_fits, worst, ah2, ObjV, NIND, ah3);
 		
 		scDepth = 150
 		scArgs = [best[:(gen+1)],scDepth,(sObjV/np.max(sObjV)) ,stopN]
 		stopCriteria = STOPCRITERIA(scArgs)
+
 		if (stopCriteria):
 			runData['BREAK'] = gen
 			break
-		
+
 		runData['GENERATIONAL_DATA'][gen]={}
-		runData['GENERATIONAL_DATA'][gen]['START_GENERATION_CHROMOSOMES'] = Chrom
+		runData['GENERATIONAL_DATA'][gen]['CHROMOSOME'] = Chrom
+
 		#assign fitness values to entire population
 		FitnV = tsp_ranking.tsp_ranking(ObjV) 
-		runData['GENERATIONAL_DATA'][gen]['STARTING_FITNESS'] = ObjV
+		runData['GENERATIONAL_DATA'][gen]['FITNESS'] = ObjV
+
 		#select individuals for breeding
 		SelCh = tsp_select.tsp_select(SELECTION, Chrom, FitnV, GGAP)
-		# runData['GENERATIONAL_DATA'][gen]['SELECTED_CHROMOSOMES'] = SelCh
 		#recombine individuals (crossover)
 		SelCh = tsp_recombin.tsp_recombin(REPRESENTATION,CROSSOVER,SelCh,PR_CROSS,DISTANCE_MATRIX=Dist) # Dist is used by some crossover methods( Heuristics)
-		runData['GENERATIONAL_DATA'][gen]['RECOMBINED_CHROMOSOMES'] = SelCh
 		SelCh = tsp_mutate.tsp_mutate(REPRESENTATION,MUTATION,SelCh,PR_MUT)
-		runData['GENERATIONAL_DATA'][gen]['MUTATED_CHROMOSOMES'] = SelCh
 		#evaluate offspring, call objective function
 		ObjVSel = tsp_fun.tsp_fun(REPRESENTATION,SelCh,Dist)
 		#reinsert offspring into population
 		Chrom,ObjV = tsp_reins.tsp_reins(Chrom,SelCh,1,[1],ObjV,ObjVSel)
-		# runData['GENERATIONAL_DATA'][gen]['REINSERTED_CHROMOSOMES'] = Chrom
-	            
+
+
 		# Chrom = tsp_ImprovePopulation.tsp_ImprovePopulation(NIND, NVAR, Chrom, LOCALLOOP, Dist)
 
 
@@ -95,5 +92,4 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE,
 		'WORST':worst,
 		'MEAN':mean_fits
 	}
-	print(tsp_stopCriteria.getThreshold())
 	return runData
