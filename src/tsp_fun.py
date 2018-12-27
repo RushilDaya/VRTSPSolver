@@ -19,7 +19,7 @@ def _computeFitnessPathRepresentation(individual, distanceMatrix):
 
 	return accumulator
 
-def tsp_fun(representation,phenotype, distanceMatrix):
+def tsp_fun(representation, phenotype, distanceMatrix):
 	if representation == 'REP_PATH':
 		fitnessVector = [_computeFitnessPathRepresentation(individual,distanceMatrix) for individual in phenotype ]
 	elif representation == 'REP_ADJACENCY':

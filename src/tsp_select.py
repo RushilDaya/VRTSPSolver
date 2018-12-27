@@ -26,7 +26,7 @@ def tsp_select(SEL_F, Chrom, FitnV, OFFSPRING_FACTOR = 1.0, SUBPOP = 1):
 	SelCh = None
 	for irun in range(SUBPOP):
 		FitnVSub = FitnV[int((irun)*Nind):int((irun+1)*Nind)]
-		ChrIx = SEL_F(FitnVSub, NSel)+(irun*Nind)
+		ChrIx = SEL_F(FitnVSub, int(NSel))+(irun*Nind)
 		ChrIx = ChrIx.astype('int')
 		
 		SelCh = SelCh and np.append(SelCh,Chrom[ChrIx],axis=0) or Chrom[ChrIx]

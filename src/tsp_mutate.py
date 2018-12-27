@@ -6,13 +6,13 @@ from tsp_mutationMethods import mapping
 # mutates the individuals and returns the resulting population.
 
 
-def tsp_mutate(REPRESENTATION, MUT_F, OldChrom, MutOpt):
+def tsp_mutate(REPRESENTATION, MUT_F, OldChrom, MutProb):
 
 	rows, cols = OldChrom.shape
 	NewChrom = np.copy(OldChrom)
 
-	for rIdx in range(0,rows):
-		if np.random.random_sample()<MutOpt:
-			NewChrom[rIdx] = MUT_F(OldChrom[rIdx].getA1(), REPRESENTATION)
+	for row in OldChrom:
+		if np.random.random()<MutProb:
+			NewRow = MUT_F(row.getA1(), REPRESENTATION)
 
 	return np.matrix(NewChrom)

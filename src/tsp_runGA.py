@@ -2,29 +2,51 @@ import random
 import tsp_path2adj, tsp_stopCriteria, tsp_fun, tsp_ranking, tsp_select, tsp_reins, tsp_selectionMethods, tsp_mutationMethods, tsp_recombin, tsp_mutate, tsp_improvePopulation
 import numpy as np
 
+def _distInit(x,y,NVAR):
+	values = [np.sqrt((x[i]-x[j])**2+(y[i]-y[j])**2) for i in range(len(x)) for j in range(len(y))]
+	Dist = np.matrix(values)
+	return Dist.reshape((NVAR,NVAR))
 
-def _initPopulation(REPRESENTATION,NIND, NVAR):
-	# returns an initial population in the appropriate representation
+def _minimalInitialPath(Dist, REPRESENTATION):
+	Nrow, Ncol = Dist.shape
+	idx = 0
+	path = [0]
+	remains = list(range(1,Ncol))
+	while remains != []:
+		val = float('Inf')
+		row = list(Dist[idx].getA1())
+		for elm in row:
+			idx = row.index(elm)
+			if elm != 0 and elm<val and idx not in path:
+					val = elm
+		idx = row.index(val)
+		path.append(idx)
+		remains.remove(idx)
+	path = np.array(path) + 1
 	if REPRESENTATION == 'REP_ADJACENCY':
-		Chrom = np.matrix(np.zeros((NIND,NVAR),dtype=int))
-		popList = list(range(1,NVAR+1))
-		for row in range(NIND):
-			tmp = popList[:]
-			random.shuffle(tmp)
-			Chrom[row] = tsp_path2adj.tsp_path2adj(tmp[:])
-		return Chrom
+		path = tsp_path2adj.tsp_path2adj(path[:])
+	return path
 
+def _initPopulation(REPRESENTATION, NIND, NVAR):
+	# returns an initial population in the appropriate representation
+	Chrom = np.matrix(np.zeros((NIND,NVAR), dtype=int))
+	
+	if REPRESENTATION == 'REP_ADJACENCY':
+		popList = list(range(1,NVAR+1))
 	elif REPRESENTATION == 'REP_PATH':
-		Chrom = np.matrix(np.zeros((NIND,NVAR), dtype=int))
-		popList = list(range(2,NVAR+1))  # start all path representations at node 1 for consistency
-		for row in range(NIND):
-			tmp = popList[:]
-			random.shuffle(tmp)
+		popList = list(range(2,NVAR+1))	# start all path representations at node 1 for consistency
+	else:
+		raise AttributeError('Unknown REPRESENTATION provided')
+	
+	for row in range(NIND):
+		tmp = popList[:]
+		random.shuffle(tmp)
+		if REPRESENTATION == 'REP_ADJACENCY':
+			Chrom[row] = tsp_path2adj.tsp_path2adj(tmp[:])
+		elif REPRESENTATION == 'REP_PATH':
 			tmp = [1] + tmp 
 			Chrom[row] = tmp[:]
-		return Chrom
-
-	raise AttributeError('Unknown REPRESENTATION provided')
+	return Chrom
 
 
 def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_PERCENTAGE, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION,STOPCRITERIA,REINSERTION ,IMPROVE_POP):
@@ -32,45 +54,50 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 	# OFFSPRING_FACTOR*NIND is the number of children which need are produced in each generation
 
 	runData = {}
-	mean_fits = np.zeros(MAXGEN)
-	worst = np.zeros(MAXGEN)
-	Dist = np.matrix(np.zeros((NVAR,NVAR)))
-	for i in range(len(x)):
-		for j in range(len(y)):
-			Dist[i,j] = np.sqrt((x[i]-x[j])**2+(y[i]-y[j])**2)
-	
+	Dist = _distInit(x,y,NVAR)
+
 	# initialize population
 	Chrom = _initPopulation(REPRESENTATION, NIND, NVAR)
+	Chrom[-1] = _minimalInitialPath(Dist, REPRESENTATION)
 	runData['INITIAL_CHROMOSOME']=Chrom
-	# number of individuals of equal fitness needed to stop
-	stopN = int(np.ceil(STOP_PERCENTAGE*NIND))-1
+
 	# evaluate initial population
-	ObjV = tsp_fun.tsp_fun(REPRESENTATION, Chrom,Dist)
-	best = np.zeros(MAXGEN)
+	ObjV = tsp_fun.tsp_fun(REPRESENTATION, Chrom, Dist)
 	
-
 	# generational loop
-	runData['GENERATIONAL_DATA'] = {}
-	runData['BREAK'] = MAXGEN
+	#runData['GENERATIONAL_DATA'] = {}
+	best = []#np.zeros(MAXGEN)
+	mean_fits = []#np.zeros(MAXGEN)
+	worst = []#np.zeros(MAXGEN)
+	FitnVList = []
+	CromList = []
+
+	# STOP CRITERIA 
+	# number of individuals of equal fitness needed to stop
+	#stopN = int(np.ceil(STOP_PERCENTAGE*NIND))-1
+	
 	for gen in range(MAXGEN):
-		sObjV = np.sort(ObjV)
-		best[gen] = np.min(ObjV)
-		minimum = best[gen]
-		mean_fits[gen] = np.mean(ObjV)
-		worst[gen] = np.max(ObjV)
+		#runData['GENERATIONAL_DATA'][gen]={}
+		if ((gen%100)==0):
+			sObjV = np.sort(ObjV)
+			minimum = np.min(ObjV)
+			#best[gen] = minimum
+			best.append(minimum)
+			#mean_fits[gen] = np.mean(ObjV)
+			mean_fits.append(np.mean(ObjV))
+			#worst[gen] = np.max(ObjV)
+			worst.append(np.max(ObjV))
 
+		#STOP CRITERIA
+		#scDepth = 150
+		#scArgs = [best[:(gen+1)],scDepth,(sObjV/np.max(sObjV)) ,stopN]
+		#stopCriteria = STOPCRITERIA(scArgs)
 
-		
-		scDepth = 150
-		scArgs = [best[:(gen+1)],scDepth,(sObjV/np.max(sObjV)) ,stopN]
-		stopCriteria = STOPCRITERIA(scArgs)
+		#if (stopCriteria):
+		#	runData['BREAK'] = gen
+		#	break
 
-		if (stopCriteria):
-			runData['BREAK'] = gen
-			break
-
-		runData['GENERATIONAL_DATA'][gen]={}
-		runData['GENERATIONAL_DATA'][gen]['FITNESS'] = ObjV # allows us to plot fitness histograms
+		#runData['GENERATIONAL_DATA'][gen]={}
 
 		#assign fitness values to entire population
 		FitnV = tsp_ranking.tsp_ranking(ObjV) 
@@ -88,12 +115,12 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 		Chrom = tsp_improvePopulation.tsp_improvePopulation(REPRESENTATION, IMPROVE_POP, Chrom, Dist)
 		ObjV = tsp_fun.tsp_fun(REPRESENTATION,Chrom,Dist)
 		#NOTE: the recalculation needs to be done after improvement @victor if you have a more efficient method please change this
-		print(gen)
+		
+		if ((gen%100)==0):
+			FitnVList.append(FitnV)
+			CromList.append(Chrom)
 
-	runData['GENERATIONAL_DATA'][gen]={}
-	runData['GENERATIONAL_DATA'][gen]['CHROMOSOME'] = Chrom
-	runData['GENERATIONAL_DATA'][gen]['FITNESS'] = ObjV
-
+	runData['FINAL_CHROMOSOME']=Chrom
 	runData['RESULTS'] = {
 		'BEST':best,
 		'WORST':worst,
