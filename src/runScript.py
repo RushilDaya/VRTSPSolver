@@ -85,8 +85,14 @@ for sc in stopCriterias:
 	## Write to File Output res
 	##########################
 	outputFileName = '../resources/out/'+STOPCRITERIA_TXT+'.pkl'
+	
 	configObj = {}
+	configObj['NODES']={
+        'X':x,
+        'Y':y
+    }
 	configObj['PARAMETERS']={
+		'REPRESENTATION':REPRESENTATION,
 		'NIND':NIND,
 		'MAXGEN':MAXGEN,
 		'NVAR':len(x),

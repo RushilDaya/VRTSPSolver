@@ -24,6 +24,11 @@ def runConfiguration(config,x,y, dataFile ,runsNum):
     print(config)
     outputFileName = dataFile.split('.')[0] + '_' + config['NAME'] + '.pkl'
     configObj = {}
+    
+    configObj['NODES']={
+        'X':x,
+        'Y':y
+    }
     configObj['PARAMETERS']={
                     'REPRESENTATION':config['REPRESENTATION'],
 					'NIND':config['NIND'],

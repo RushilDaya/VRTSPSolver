@@ -29,23 +29,7 @@ def _initPopulation(REPRESENTATION,NIND, NVAR):
 
 def tsp_runGA(REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION,STOPCRITERIA, LOCALLOOP):
 
-	runData = {
-				'NODES':{
-					'X':x,
-					'Y':y
-				},
-				'PARAMETERS':{
-					'REPRESENTATION':REPRESENTATION,
-					'NIND':NIND,
-					'MAXGEN':MAXGEN,
-					'NVAR':NVAR,
-					'ELITIST':ELITIST,
-					'STOP_PERCENTAGE':STOP_PERCENTAGE,
-					'PR_CROSS':PR_CROSS,
-					'PR_MUT':PR_MUT,
-					'LOCALLOOP':LOCALLOOP
-			  	}			
-			  }
+	runData = {}
 	GGAP = (1 - ELITIST)
 	mean_fits = np.zeros(MAXGEN)
 	worst = np.zeros(MAXGEN)
@@ -66,7 +50,7 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE,
 	# set Threshold
 	#tsp_stopCriteria.setThreshold((1.119))
 	# generational loop
-	# runData['GENERATIONAL_DATA'] = {}
+	runData['GENERATIONAL_DATA'] = {}
 	runData['BREAK'] = MAXGEN
 	for gen in range(MAXGEN):
 		sObjV = np.sort(ObjV)
@@ -88,7 +72,7 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE,
 		runData['GENERATIONAL_DATA'][gen]['START_GENERATION_CHROMOSOMES'] = Chrom
 		#assign fitness values to entire population
 		FitnV = tsp_ranking.tsp_ranking(ObjV) 
-		# runData['GENERATIONAL_DATA'][gen]['STARTING_FITNESS'] = ObjV
+		runData['GENERATIONAL_DATA'][gen]['STARTING_FITNESS'] = ObjV
 		#select individuals for breeding
 		SelCh = tsp_select.tsp_select(SELECTION, Chrom, FitnV, GGAP)
 		# runData['GENERATIONAL_DATA'][gen]['SELECTED_CHROMOSOMES'] = SelCh
