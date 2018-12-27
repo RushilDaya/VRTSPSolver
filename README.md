@@ -3,11 +3,11 @@ MoAI TSP Genetic Algorithm Project
 
 ## Immediate Concerns
 ### Victor J
-1. x-opt local heuristic
-2. Hibrid Mutation Technics
+1. x-opt local heuristic (point 5)
+2. Hibrid Mutation Technics (point d)
 
 ### Rushil
-1. Stop Criteria Review
+1. Stop Criteria Review (point 3)
 
 ## Original Task
 1. ~~On Toledo, you can find the GA Toolbox, the template program and tutorials about Matlab. Test the Matlab program to solve a TSP.~~
@@ -18,8 +18,8 @@ MoAI TSP Genetic Algorithm Project
 6. Test the performance of your algorithm using some benchmark problems (available on Toledo) and critically evaluate the achieved performance.
 7. You should select at least one task from the list below:
   - (a) ~~Implement and use two other parent selection methods, i.e. fitness proportional selection and tournament selection.~~ Compare the results with those obtained using the default rank- based selection.
-  - (b) ~~Implement one survivor selection strategy (besides the already implemented elitism). Per- form experiments and evaluate the results.~~
-  - (c) Implement and use one of the techniques aimed at preserving population diversity (e.g. subpopulations/islands, crowding, . . . ). Perform experiments and evaluate the results.
+  - (b) ~~Implement one survivor selection strategy (besides the already implemented elitism).~~ Perform experiments and evaluate the results.
+  - (c) Implement and use one of the techniques aimed at preserving population diversity (e.g. subpopulations/islands, crowding,...). Perform experiments and evaluate the results.
   - (d) Incorporate an adaptive or self-adaptive parameter control strategy (e.g. parameters that depend on the state of the population, parameters that co-evolve with the population,...). Perform experiments and evaluate the results.
 8. Write a short report (≈ 10 pages, appendices and code not included), discussing your implemen- tation and explaining your results. Include your code in the appendix.
 Note: A carefully written report of ≈ 10 pages can contain a lot of information, if well written. Be precise but concise! Do not repeat information from the handbook or slides.
