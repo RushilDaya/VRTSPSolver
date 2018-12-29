@@ -3,7 +3,7 @@ import math, random
 
 def mapping(REP):
 	if(REP=='REP_ADJACENCY' or REP=='REP_PATH'):
-		function_mappings = {'tsp_sus': tsp_fps,'tsp_fps': tsp_deterministic_tournament,'tsp_deterministic_tournament': tsp_deterministic_tournament,'tsp_nondeterministic_tournament': tsp_nondeterministic_tournament,'tsp_nondeterministic_tournament_battle': tsp_nondeterministic_tournament_battle,'tsp_rankLinear': tsp_rankLinear,'tsp_rankExponential': tsp_rankExponential,}
+		function_mappings = {'tsp_sus': tsp_sus,'tsp_fps': tsp_fps,'tsp_deterministic_tournament': tsp_deterministic_tournament,'tsp_nondeterministic_tournament': tsp_nondeterministic_tournament,'tsp_nondeterministic_tournament_battle': tsp_nondeterministic_tournament_battle,'tsp_rankLinear': tsp_rankLinear,'tsp_rankExponential': tsp_rankExponential,}
 		return function_mappings
 	else:
 		return None

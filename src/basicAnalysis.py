@@ -24,9 +24,7 @@ def analyseRun(run):
     
 def analyseBestPath(run, representation,x,y):
     try:
-        genData = run['GENERATIONAL_DATA']
-        lastRun = max(genData.keys())
-        best = genData[lastRun]['CHROMOSOME'][genData[lastRun]['FITNESS'].argmin()]
+        best = run['FINAL_CHROMOSOME'][run['FINAL_FITNESS'].argmin()]
         plotRoute(x,y,best, representation)
     except:
         pass
