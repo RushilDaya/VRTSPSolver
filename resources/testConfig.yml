@@ -1,0 +1,16 @@
+configTest:
+ REPRESENTATION : REP_ADJACENCY
+ NIND : 100
+ MAXGEN : 300
+ OFFSPRING_FACTOR : 1.1
+ ELITE_PERCENTAGE : 0.05
+ STOP_PERCENTAGE : 0
+ PR_CROSS : 0.95
+ PR_MUT : 0.8
+ LOCALLOOP : 0
+ CROSSOVER : tsp_greedyHeuristicCrossover
+ MUTATION : tsp_inversion
+ SELECTION : tsp_sus
+ REINSERTION: tsp_genitor
+ IMPROVE_POP: tsp_none
+ STOPCRITERIA: dummy

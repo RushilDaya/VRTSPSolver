@@ -8,7 +8,7 @@ from concurrent.futures import ProcessPoolExecutor
 
 # CONSTANTS
 N_CORES = 4
-REPETITIONS = 3
+REPETITIONS = 1
 
 # MAPPING
 mutation_mappings = tsp_mutationMethods.mapping()
@@ -35,7 +35,7 @@ def mp(func, args, cores, currentConfig):
 
 
 # MAIN SCRIPT
-with open(pathCnf+"config.yml") as ymlfile:
+with open(pathCnf+"testConfig.yml") as ymlfile:
 		cfg = yaml.load(ymlfile)
 
 

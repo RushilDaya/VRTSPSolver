@@ -78,14 +78,11 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 	
 	for gen in range(MAXGEN):
 		#runData['GENERATIONAL_DATA'][gen]={}
-		if ((gen%100)==0):
+		if ((gen%1)==0):
 			sObjV = np.sort(ObjV)
 			minimum = np.min(ObjV)
-			#best[gen] = minimum
 			best.append(minimum)
-			#mean_fits[gen] = np.mean(ObjV)
 			mean_fits.append(np.mean(ObjV))
-			#worst[gen] = np.max(ObjV)
 			worst.append(np.max(ObjV))
 
 		#STOP CRITERIA
@@ -100,10 +97,10 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 		#runData['GENERATIONAL_DATA'][gen]={}
 
 		#assign fitness values to entire population
-		FitnV = tsp_ranking.tsp_ranking(ObjV) 
+		#FitnV = tsp_ranking.tsp_ranking(ObjV) 
 
 		#select individuals for breeding
-		SelCh = tsp_select.tsp_select(SELECTION, Chrom, FitnV, OFFSPRING_FACTOR)
+		SelCh = tsp_select.tsp_select(SELECTION, Chrom, ObjV, OFFSPRING_FACTOR)
 		#recombine individuals (crossover)
 		SelCh = tsp_recombin.tsp_recombin(REPRESENTATION,CROSSOVER,SelCh,PR_CROSS,DISTANCE_MATRIX=Dist) # Dist is used by some crossover methods( Heuristics)
 		SelCh = tsp_mutate.tsp_mutate(REPRESENTATION,MUTATION,SelCh,PR_MUT)
@@ -116,11 +113,13 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 		ObjV = tsp_fun.tsp_fun(REPRESENTATION,Chrom,Dist)
 		#NOTE: the recalculation needs to be done after improvement @victor if you have a more efficient method please change this
 		
-		if ((gen%100)==0):
-			FitnVList.append(FitnV)
+		if ((gen%20)==0):
+			FitnVList.append(ObjV)
 			CromList.append(Chrom)
 
 	runData['FINAL_CHROMOSOME']=Chrom
+	runData['FINAL_FITNESS']=ObjV
+	
 	runData['RESULTS'] = {
 		'BEST':best,
 		'WORST':worst,
