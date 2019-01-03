@@ -3,7 +3,7 @@ import pickle
 import inputData
 import numpy as np
 from tsp_runGA import tsp_runGA
-import tsp_crossoverMethods, tsp_mutationMethods, tsp_selectionMethods, tsp_reinsMethods, tsp_improvePopulationMethods, tsp_stopCriteria
+import tsp_crossoverMethods, tsp_mutationMethods, tsp_selectionMethods, tsp_reinsMethods, tsp_improveMethods, tsp_stopCriteria
 from concurrent.futures import ProcessPoolExecutor
 
 # CONSTANTS
@@ -15,7 +15,7 @@ mutation_mappings = tsp_mutationMethods.mapping()
 crossover_mappings = tsp_crossoverMethods.mapping('REP_ADJACENCY')
 selection_mappings = tsp_selectionMethods.mapping('REP_ADJACENCY')
 reinsertion_mappings = tsp_reinsMethods.mapping()
-improvement_mappings = tsp_improvePopulationMethods.mapping()
+improvement_mappings = tsp_improveMethods.mapping()
 stopCriteria_mapping = tsp_stopCriteria.mapping()
 
 # PATHS

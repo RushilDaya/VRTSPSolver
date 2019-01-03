@@ -1,5 +1,5 @@
 import random
-import tsp_path2adj, tsp_stopCriteria, tsp_fun, tsp_ranking, tsp_select, tsp_reins, tsp_selectionMethods, tsp_mutationMethods, tsp_recombin, tsp_mutate, tsp_improvePopulation
+import tsp_path2adj, tsp_stopCriteria, tsp_fun, tsp_ranking, tsp_select, tsp_reins, tsp_selectionMethods, tsp_mutationMethods, tsp_recombin, tsp_mutate, tsp_improve
 import numpy as np
 
 def _distInit(x,y,NVAR):
@@ -7,21 +7,15 @@ def _distInit(x,y,NVAR):
 	Dist = np.matrix(values)
 	return Dist.reshape((NVAR,NVAR))
 
-def _minimalInitialPath(Dist, REPRESENTATION):
+def _NNHeuristic(Dist, REPRESENTATION):
 	Nrow, Ncol = Dist.shape
 	idx = 0
 	path = [0]
-	remains = list(range(1,Ncol))
-	while remains != []:
-		val = float('Inf')
+	while len(path)<Nrow:
 		row = list(Dist[idx].getA1())
-		for elm in row:
-			idx = row.index(elm)
-			if elm != 0 and elm<val and idx not in path:
-					val = elm
-		idx = row.index(val)
+		minDist = min(x for x in row if (x>0 and row.index(x) not in path))
+		idx = row.index(minDist)
 		path.append(idx)
-		remains.remove(idx)
 	path = np.array(path) + 1
 	if REPRESENTATION == 'REP_ADJACENCY':
 		path = tsp_path2adj.tsp_path2adj(path[:])
@@ -48,18 +42,36 @@ def _initPopulation(REPRESENTATION, NIND, NVAR):
 			Chrom[row] = tmp[:]
 	return Chrom
 
+def _finishState(runData, Chrom, ObjV, gen, best, worst, mean_fits):
+	runData['FINAL_CHROMOSOME']= Chrom
+	runData['FINAL_FITNESS']= ObjV
+	runData['BREAKGEN']= gen
+		
+	runData['RESULTS'] = {
+		'BEST':best,
+		'WORST':worst,
+		'MEAN':mean_fits
+	}
+	return runData
 
-def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_PERCENTAGE, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION,STOPCRITERIA,REINSERTION ,IMPROVE_POP):
+def _switchCase(argument):
+    switcher = {0: 50, 1: 10, 2: 5, 3: 1,}
+    return switcher.get(argument, 5000)
+
+def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_PERCENTAGE, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, MUTATION, SELECTION,STOPCRITERIA,REINSERTION ,IMPROVE_POP, RANKBASE = True, LOGLVL = 0):
 	# ELITE_PERCENTAGE is the fraction of best parents which are always preserved
 	# OFFSPRING_FACTOR*NIND is the number of children which need are produced in each generation
+
+	#LOG Level
+	LOGGEN = _switchCase(LOGLVL)
 
 	runData = {}
 	Dist = _distInit(x,y,NVAR)
 
 	# initialize population
 	Chrom = _initPopulation(REPRESENTATION, NIND, NVAR)
-	Chrom[-1] = _minimalInitialPath(Dist, REPRESENTATION)
-	runData['INITIAL_CHROMOSOME']=Chrom
+	Chrom[-1] = _NNHeuristic(Dist, REPRESENTATION) # add last individual using the Nearest Neighbor Heuristics.
+	runData['INITIAL_CHROMOSOME'] = Chrom
 
 	# evaluate initial population
 	ObjV = tsp_fun.tsp_fun(REPRESENTATION, Chrom, Dist)
@@ -78,12 +90,12 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 	
 	for gen in range(MAXGEN):
 		#runData['GENERATIONAL_DATA'][gen]={}
-		if ((gen%1)==0):
-			sObjV = np.sort(ObjV)
-			minimum = np.min(ObjV)
-			best.append(minimum)
-			mean_fits.append(np.mean(ObjV))
-			worst.append(np.max(ObjV))
+		#if ((gen%LOGGEN)==0):
+		sObjV = np.sort(ObjV)
+		minimum = np.min(ObjV)
+		best.append(minimum)
+		mean_fits.append(np.mean(ObjV))
+		worst.append(np.max(ObjV))
 
 		#STOP CRITERIA
 		#scDepth = 150
@@ -91,16 +103,18 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 		#stopCriteria = STOPCRITERIA(scArgs)
 
 		#if (stopCriteria):
-		#	runData['BREAK'] = gen
-		#	break
+		#	return _finishState(runData, Chrom, ObjV, gen, best, worst, mean_fits)
 
 		#runData['GENERATIONAL_DATA'][gen]={}
 
 		#assign fitness values to entire population
-		#FitnV = tsp_ranking.tsp_ranking(ObjV) 
+		if RANKBASE:
+			FitnV = tsp_ranking.tsp_ranking(ObjV) 
+		else:
+			FitnV = np.copy(ObjV)
 
 		#select individuals for breeding
-		SelCh = tsp_select.tsp_select(SELECTION, Chrom, ObjV, OFFSPRING_FACTOR)
+		SelCh = tsp_select.tsp_select(SELECTION,Chrom,ObjV,OFFSPRING_FACTOR)
 		#recombine individuals (crossover)
 		SelCh = tsp_recombin.tsp_recombin(REPRESENTATION,CROSSOVER,SelCh,PR_CROSS,DISTANCE_MATRIX=Dist) # Dist is used by some crossover methods( Heuristics)
 		SelCh = tsp_mutate.tsp_mutate(REPRESENTATION,MUTATION,SelCh,PR_MUT)
@@ -109,20 +123,13 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 		#reinsert offspring into population
 		Chrom,ObjV = tsp_reins.tsp_reins(REINSERTION, Chrom,SelCh,ObjV,ObjVSel,ELITE_PERCENTAGE)
 
-		Chrom = tsp_improvePopulation.tsp_improvePopulation(REPRESENTATION, IMPROVE_POP, Chrom, Dist)
+		Chrom = tsp_improve.tsp_improvePopulation(REPRESENTATION, IMPROVE_POP, Chrom, Dist)
 		ObjV = tsp_fun.tsp_fun(REPRESENTATION,Chrom,Dist)
 		#NOTE: the recalculation needs to be done after improvement @victor if you have a more efficient method please change this
 		
-		if ((gen%20)==0):
+
+		if ((gen%LOGGEN)==0):
 			FitnVList.append(ObjV)
 			CromList.append(Chrom)
 
-	runData['FINAL_CHROMOSOME']=Chrom
-	runData['FINAL_FITNESS']=ObjV
-	
-	runData['RESULTS'] = {
-		'BEST':best,
-		'WORST':worst,
-		'MEAN':mean_fits
-	}
-	return runData
+	return _finishState(runData, Chrom, ObjV, gen, best, worst, mean_fits)
