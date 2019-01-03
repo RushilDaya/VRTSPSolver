@@ -9,13 +9,10 @@ from tsp_mutationMethods import mapping
 def tsp_mutate(REPRESENTATION, MUT_F, OldChrom, MutProb):
 
 	rows, cols = OldChrom.shape
-	NewChrom = []
+	NewChrom = np.copy(OldChrom)
 
-	for row in OldChrom:
+	for row in range(rows):
 		if np.random.random()<MutProb:
-			NewRow = MUT_F(row.getA1(), REPRESENTATION)
-		else:
-			NewRow = row.getA1()
-		NewChrom.append(NewRow)
+			NewChrom[row] = MUT_F(OldChrom[row].getA1(), REPRESENTATION)
 
 	return np.matrix(NewChrom)

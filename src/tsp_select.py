@@ -29,6 +29,9 @@ def tsp_select(SEL_F, Chrom, FitnV, OFFSPRING_FACTOR = 1.0, SUBPOP = 1):
 		ChrIx = SEL_F(FitnVSub, int(NSel))+(irun*Nind)
 		ChrIx = ChrIx.astype('int')
 		
-		SelCh = SelCh and np.append(SelCh,Chrom[ChrIx],axis=0) or Chrom[ChrIx]
+		if SelCh is None:
+			SelCh = Chrom[ChrIx]
+		else:
+			SelCh = np.append(SelCh,Chrom[ChrIx],axis=0)
 			
 	return np.matrix(SelCh)

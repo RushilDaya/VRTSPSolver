@@ -3,7 +3,7 @@ import math, random
 
 def mapping(REP):
 	if(REP=='REP_ADJACENCY' or REP=='REP_PATH'):
-		function_mappings = {'tsp_sus': tsp_sus,'tsp_fps': tsp_fps,'tsp_deterministic_tournament': tsp_deterministic_tournament,'tsp_nondeterministic_tournament': tsp_nondeterministic_tournament,'tsp_nondeterministic_tournament_battle': tsp_nondeterministic_tournament_battle,'tsp_rankLinear': tsp_rankLinear,'tsp_rankExponential': tsp_rankExponential,}
+		function_mappings = {'tsp_sus': tsp_sus,'tsp_fps': tsp_fps,'tsp_deterministic_tournament': tsp_deterministic_tournament,'tsp_nondeterministic_tournament': tsp_nondeterministic_tournament,'tsp_nondeterministic_tournament_battle': tsp_nondeterministic_tournament_battle,}#'tsp_rankLinear': tsp_rankLinear,'tsp_rankExponential': tsp_rankExponential,}
 		return function_mappings
 	else:
 		return None
@@ -86,32 +86,3 @@ def tsp_nondeterministic_tournament_battle(FitnV, Nsel, battlePop = 0.1):
 		selectedIdx.append(tournFitnVIdx[0])
 	np.random.shuffle(selectedIdx) # in-place function
 	return np.array(selectedIdx)
-
-## RANK SELECTION BASE
-def tsp_rankLinear(FitnV, Nsel):
-	# perform linear rank based sampling 
-	return _tsp_rank(FitnV, Nsel, _linearCalc)
-
-def tsp_rankExponential(FitnV, Nsel):
-	# perform exponential rank based sampling 
-	return _tsp_rank(FitnV, Nsel, _expCalc)
-
-def _expCalc(idx, *args):
-	return (1-math.exp(-idx))
-
-def _linearCalc(idx, selectPress, Nind):
-	return (((2-selectPress)/Nind)+((2*idx*(selectPress-1)/(Nind*(Nind-1)))))
-
-# params: selectPress is the selection pression at the actual point, it is act as a temperature
-def _tsp_rank(FitnV, Nsel, RANKFUNC, selectPress = 2):
-	Nind = len(FitnV)
-	sortedIdx = np.argsort(-FitnV)
-	selectProb = [RANKFUNC(idx, selectPress, Nind) for idx in range(Nind)]
-	selectProb /= np.cumsum(selectProb)[-1] #Normalization
-	cumfit = np.cumsum(selectProb)
-	trails = [random.random() for i in range(Nsel)]
-	selectedProbIdx = [_getTrailIndex(item, cumfit) for item in trails]
-	selectedIdx = [sortedIdx[idx] for idx in selectedProbIdx]
-	np.random.shuffle(selectedIdx) # in-place function
-	return np.array(selectedIdx)
-
