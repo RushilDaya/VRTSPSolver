@@ -1,12 +1,11 @@
 import numpy as np
 import tsp_adj2path
 import tsp_path2adj
-import tsp_improvePath
+import tsp_improveMethods
 
-# This function improves a tsp population by removing local loops from
-# each individual.
+# This function improves a tsp population by removing local loops from each individual.
 
-def tsp_improvePopulation(REPRESENTATION,IMPROVE_FUNC, Chrom, DISTANCE_MATRIX = None):
+def tsp_improvePopulation(REPRESENTATION, IMPROVE_FUNC, Chrom, DISTANCE_MATRIX):
 
 	ChromList = Chrom.tolist()
 	newChrom = []
@@ -22,6 +21,4 @@ def tsp_improvePopulation(REPRESENTATION,IMPROVE_FUNC, Chrom, DISTANCE_MATRIX = 
 			newChrom.append(improved)
 		elif REPRESENTATION == 'REP_ADJACENCY':
 			newChrom.append(tsp_path2adj.tsp_path2adj(improved))
-
-	#print(newChrom)
 	return np.matrix(newChrom)
