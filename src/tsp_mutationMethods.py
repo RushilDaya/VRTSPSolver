@@ -92,11 +92,11 @@ def tsp_scramble(oldChrome, REPRESENTATION):
 
 	return _returnRep(tempChrome,REPRESENTATION)
 
-# low level operator to perform repeted scramble mutation
-def tsp_3scramble(oldChrome, REPRESENTATION):
+# low level operator to perform repeted scramble mutation with distance 3
+def tsp_3scramble(oldChrome, REPRESENTATION, MAX_ITER = .1):
 
 	tempChrome = _selectRep(oldChrome,REPRESENTATION)
-	
+	MAX_ITER = int(len(oldChrome) * MAX_ITER)
 	for i in range(MAX_ITER):
 		x = random.randrange(len(oldChrome)-1)
 		y = x+2
