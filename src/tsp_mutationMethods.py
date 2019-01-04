@@ -61,7 +61,7 @@ def tsp_nSwap(oldChrome, REPRESENTATION, MAX_ITER = .2):
 	# Perform up to MAX_ITER swaps in the chromosome with a probability of ProbSwap
 
 	tempChrome = _selectRep(oldChrome,REPRESENTATION)
-	MAX_ITER = int(oldChrome * MAX_ITER)
+	MAX_ITER = int(len(oldChrome) * MAX_ITER)
 	for i in range(MAX_ITER):
 		x,y = random.sample(range(len(tempChrome)), 2)
 		if random.random()<=INNER_MUT_PROB:
