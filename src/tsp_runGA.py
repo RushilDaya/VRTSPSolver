@@ -42,7 +42,7 @@ def _initPopulation(REPRESENTATION, NIND, NVAR):
 			Chrom[row] = tmp[:]
 	return Chrom
 
-def _finishState(runData, Chrom, ObjV, gen, best, worst, mean_fits):
+def _finalState(runData, Chrom, ObjV, gen, best, worst, mean_fits):
 	runData['FINAL_CHROMOSOME']= Chrom
 	runData['FINAL_FITNESS']= ObjV
 	runData['BREAKGEN']= gen
@@ -103,7 +103,7 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 		#stopCriteria = STOPCRITERIA(scArgs)
 
 		#if (stopCriteria):
-		#	return _finishState(runData, Chrom, ObjV, gen, best, worst, mean_fits)
+		#	return _finalState(runData, Chrom, ObjV, gen, best, worst, mean_fits)
 
 		#runData['GENERATIONAL_DATA'][gen]={}
 
@@ -132,4 +132,4 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 			FitnVList.append(ObjV)
 			CromList.append(Chrom)
 
-	return _finishState(runData, Chrom, ObjV, gen, best, worst, mean_fits)
+	return _finalState(runData, Chrom, ObjV, gen, best, worst, mean_fits)

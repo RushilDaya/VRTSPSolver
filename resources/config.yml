@@ -1,12 +1,12 @@
 config0:
  REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.05
  CROSSOVER : tsp_xaltEdges
  MUTATION : tsp_inversion
  SELECTION : tsp_sus
@@ -17,14 +17,14 @@ config0:
 
 config1:
  REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
+ CROSSOVER : tsp_greedyHeuristicCrossover
  MUTATION : tsp_inversion
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
@@ -34,14 +34,14 @@ config1:
 
 config2:
  REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
+ CROSSOVER : tsp_probabilisticHeuristicCrossover
  MUTATION : tsp_inversion
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
@@ -50,15 +50,15 @@ config2:
           
 
 config3:
- REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ REPRESENTATION : REP_PATH
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
+ CROSSOVER : tsp_sequentialConstructiveCrossover
  MUTATION : tsp_inversion
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
@@ -67,15 +67,15 @@ config3:
           
 
 config4:
- REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ REPRESENTATION : REP_PATH
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
+ CROSSOVER : tsp_orderedCrossover
  MUTATION : tsp_inversion
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
@@ -85,15 +85,15 @@ config4:
 
 config5:
  REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.4
  CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ MUTATION : tsp_swap
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -102,15 +102,15 @@ config5:
 
 config6:
  REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ CROSSOVER : tsp_greedyHeuristicCrossover
+ MUTATION : tsp_swap
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -119,15 +119,15 @@ config6:
 
 config7:
  REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ CROSSOVER : tsp_probabilisticHeuristicCrossover
+ MUTATION : tsp_swap
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -135,16 +135,16 @@ config7:
           
 
 config8:
- REPRESENTATION : REP_ADJACENCY
- NIND : 10
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
- STOP_PERCENTAGE : 0
+ REPRESENTATION : REP_PATH
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
  PR_CROSS : 0.6
  PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ MAXGEN : 500
+ OFFSPRING_FACTOR : 1
+ STOP_PERCENTAGE : 0
+ CROSSOVER : tsp_sequentialConstructiveCrossover
+ MUTATION : tsp_swap
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -152,16 +152,16 @@ config8:
           
 
 config9:
- REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ REPRESENTATION : REP_PATH
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ CROSSOVER : tsp_orderedCrossover
+ MUTATION : tsp_swap
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -170,15 +170,15 @@ config9:
 
 config10:
  REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.15
  CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ MUTATION : tsp_nSwap
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -187,15 +187,15 @@ config10:
 
 config11:
  REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ CROSSOVER : tsp_greedyHeuristicCrossover
+ MUTATION : tsp_nSwap
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -204,15 +204,15 @@ config11:
 
 config12:
  REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ CROSSOVER : tsp_probabilisticHeuristicCrossover
+ MUTATION : tsp_nSwap
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -220,16 +220,16 @@ config12:
           
 
 config13:
- REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ REPRESENTATION : REP_PATH
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ CROSSOVER : tsp_sequentialConstructiveCrossover
+ MUTATION : tsp_nSwap
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -237,16 +237,16 @@ config13:
           
 
 config14:
- REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ REPRESENTATION : REP_PATH
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ CROSSOVER : tsp_orderedCrossover
+ MUTATION : tsp_nSwap
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -255,15 +255,15 @@ config14:
 
 config15:
  REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.05
  CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ MUTATION : tsp_insertion
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -272,15 +272,15 @@ config15:
 
 config16:
  REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ CROSSOVER : tsp_greedyHeuristicCrossover
+ MUTATION : tsp_insertion
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -289,15 +289,15 @@ config16:
 
 config17:
  REPRESENTATION : REP_ADJACENCY
- NIND : 10
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
  PR_CROSS : 0.6
  PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ MAXGEN : 500
+ OFFSPRING_FACTOR : 1
+ STOP_PERCENTAGE : 0
+ CROSSOVER : tsp_probabilisticHeuristicCrossover
+ MUTATION : tsp_insertion
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -305,16 +305,16 @@ config17:
           
 
 config18:
- REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ REPRESENTATION : REP_PATH
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ CROSSOVER : tsp_sequentialConstructiveCrossover
+ MUTATION : tsp_insertion
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -322,16 +322,16 @@ config18:
           
 
 config19:
- REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ REPRESENTATION : REP_PATH
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ CROSSOVER : tsp_orderedCrossover
+ MUTATION : tsp_insertion
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -340,15 +340,15 @@ config19:
 
 config20:
  REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.4
  CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ MUTATION : tsp_scramble
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -357,15 +357,15 @@ config20:
 
 config21:
  REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ CROSSOVER : tsp_greedyHeuristicCrossover
+ MUTATION : tsp_scramble
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -374,15 +374,15 @@ config21:
 
 config22:
  REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ CROSSOVER : tsp_probabilisticHeuristicCrossover
+ MUTATION : tsp_scramble
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -390,16 +390,16 @@ config22:
           
 
 config23:
- REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ REPRESENTATION : REP_PATH
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ CROSSOVER : tsp_sequentialConstructiveCrossover
+ MUTATION : tsp_scramble
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -407,16 +407,16 @@ config23:
           
 
 config24:
- REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ REPRESENTATION : REP_PATH
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ CROSSOVER : tsp_orderedCrossover
+ MUTATION : tsp_scramble
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -425,15 +425,15 @@ config24:
 
 config25:
  REPRESENTATION : REP_ADJACENCY
- NIND : 10
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.15
  CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ MUTATION : tsp_3scramble
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -442,15 +442,15 @@ config25:
 
 config26:
  REPRESENTATION : REP_ADJACENCY
- NIND : 10
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
+ NIND : 150
  ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
  PR_CROSS : 0.6
  PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ MAXGEN : 500
+ OFFSPRING_FACTOR : 1
+ STOP_PERCENTAGE : 0
+ CROSSOVER : tsp_greedyHeuristicCrossover
+ MUTATION : tsp_3scramble
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -459,15 +459,15 @@ config26:
 
 config27:
  REPRESENTATION : REP_ADJACENCY
- NIND : 50
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ CROSSOVER : tsp_probabilisticHeuristicCrossover
+ MUTATION : tsp_3scramble
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -475,16 +475,16 @@ config27:
           
 
 config28:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
+ REPRESENTATION : REP_PATH
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
+ PR_CROSS : 0.6
+ PR_MUT : 0.4
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ CROSSOVER : tsp_sequentialConstructiveCrossover
+ MUTATION : tsp_3scramble
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
@@ -492,883 +492,16 @@ config28:
           
 
 config29:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config30:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config31:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config32:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config33:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config34:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config35:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
- STOP_PERCENTAGE : 0
+ REPRESENTATION : REP_PATH
+ NIND : 150
+ ELITE_PERCENTAGE : 0.4
  PR_CROSS : 0.6
  PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config36:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
  MAXGEN : 500
  OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
  STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config37:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config38:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config39:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config40:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config41:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config42:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config43:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config44:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config45:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config46:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config47:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config48:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config49:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config50:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config51:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config52:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config53:
- REPRESENTATION : REP_ADJACENCY
- NIND : 50
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config54:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config55:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config56:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config57:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config58:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config59:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config60:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config61:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config62:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.05
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config63:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config64:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config65:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config66:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config67:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config68:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config69:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config70:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config71:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.15
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config72:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config73:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config74:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.95
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config75:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config76:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config77:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.85
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config78:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.05
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config79:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.15
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
- SELECTION : tsp_sus
- REINSERTION: tsp_genitor
- IMPROVE_POP: tsp_none
- STOPCRITERIA: tsp_none
-          
-
-config80:
- REPRESENTATION : REP_ADJACENCY
- NIND : 150
- MAXGEN : 500
- OFFSPRING_FACTOR : 1
- ELITE_PERCENTAGE : 0.4
- STOP_PERCENTAGE : 0
- PR_CROSS : 0.6
- PR_MUT : 0.4
- CROSSOVER : tsp_xaltEdges
- MUTATION : tsp_inversion
+ CROSSOVER : tsp_orderedCrossover
+ MUTATION : tsp_3scramble
  SELECTION : tsp_sus
  REINSERTION: tsp_genitor
  IMPROVE_POP: tsp_none
