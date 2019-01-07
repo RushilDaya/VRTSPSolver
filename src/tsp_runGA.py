@@ -70,7 +70,7 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 
 	# initialize population
 	Chrom = _initPopulation(REPRESENTATION, NIND, NVAR)
-	Chrom[-1] = _NNHeuristic(Dist, REPRESENTATION) # add last individual using the Nearest Neighbor Heuristics.
+	#Chrom[-1] = _NNHeuristic(Dist, REPRESENTATION) # add last individual using the Nearest Neighbor Heuristics.
 	runData['INITIAL_CHROMOSOME'] = Chrom
 
 	# evaluate initial population
@@ -86,24 +86,24 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 
 	# STOP CRITERIA 
 	# number of individuals of equal fitness needed to stop
-	#stopN = int(np.ceil(STOP_PERCENTAGE*NIND))-1
-	
+	stopN = int(np.ceil(STOP_PERCENTAGE*NIND))-1
+	sObjV = np.sort(ObjV)
+
 	for gen in range(MAXGEN):
-		#runData['GENERATIONAL_DATA'][gen]={}
-		#if ((gen%LOGGEN)==0):
-		sObjV = np.sort(ObjV)
-		minimum = np.min(ObjV)
-		best.append(minimum)
-		mean_fits.append(np.mean(ObjV))
-		worst.append(np.max(ObjV))
-
 		#STOP CRITERIA
-		#scDepth = 150
-		#scArgs = [best[:(gen+1)],scDepth,(sObjV/np.max(sObjV)) ,stopN]
-		#stopCriteria = STOPCRITERIA(scArgs)
+		THRESHOLD = 10**-15
+		scDepth = 75
+		scArgs = [STOPCRITERIA,THRESHOLD,best[:(gen+1)],scDepth,(sObjV/np.max(sObjV)),stopN,gen,MAXGEN]
+		stopCriteria = tsp_stopCriteria.tsp_genericStopCriteria(scArgs)
 
-		#if (stopCriteria):
-		#	return _finalState(runData, Chrom, ObjV, gen, best, worst, mean_fits)
+		if (stopCriteria):
+			Chrom = tsp_improve.tsp_improvePopulation(REPRESENTATION, IMPROVE_POP, Chrom, Dist)
+			ObjV = tsp_fun.tsp_fun(REPRESENTATION,Chrom,Dist)
+			minimum = np.min(ObjV)
+			best.append(minimum)
+			mean_fits.append(np.mean(ObjV))
+			worst.append(np.max(ObjV))
+			return _finalState(runData, Chrom, ObjV, gen, best, worst, mean_fits)
 
 		#runData['GENERATIONAL_DATA'][gen]={}
 
@@ -123,10 +123,18 @@ def tsp_runGA(REPRESENTATION,x, y, NIND, OFFSPRING_FACTOR, MAXGEN, NVAR, ELITE_P
 		#reinsert offspring into population
 		Chrom,ObjV = tsp_reins.tsp_reins(REINSERTION, Chrom,SelCh,ObjV,ObjVSel,ELITE_PERCENTAGE)
 
-		Chrom = tsp_improve.tsp_improvePopulation(REPRESENTATION, IMPROVE_POP, Chrom, Dist)
-		ObjV = tsp_fun.tsp_fun(REPRESENTATION,Chrom,Dist)
+		if (gen and not(gen%50)) or gen==range(MAXGEN)[-1]:
+			Chrom = tsp_improve.tsp_improvePopulation(REPRESENTATION, IMPROVE_POP, Chrom, Dist)
+			ObjV = tsp_fun.tsp_fun(REPRESENTATION,Chrom,Dist)
 		#NOTE: the recalculation needs to be done after improvement @victor if you have a more efficient method please change this
 		
+		#runData['GENERATIONAL_DATA'][gen]={}
+		#if ((gen%LOGGEN)==0):
+		sObjV = np.sort(ObjV)
+		minimum = np.min(ObjV)
+		best.append(minimum)
+		mean_fits.append(np.mean(ObjV))
+		worst.append(np.max(ObjV))
 
 		if ((gen%LOGGEN)==0):
 			FitnVList.append(ObjV)
