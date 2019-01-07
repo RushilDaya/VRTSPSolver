@@ -65,13 +65,14 @@ def heatmap(run):
 
 def checkResults(fileName):
     fileData = open(fileName,'rb')
-    confObj = pickle.load(fileData)
-    print(confObj['PARAMETERS'])
-    representation = confObj['PARAMETERS']['REPRESENTATION']
-    runs = confObj['RUNS']
-    x = confObj['NODES']['X']
-    y = confObj['NODES']['Y']
-    [(analyseRun(run), heatmap(run) ,analyseBestPath(run, representation, x,y)) for run in runs]
+    confObjList = pickle.load(fileData)
+    for confObj in  confObjList:
+        print(confObj, confObjList[confObj]['PARAMETERS']['IMPROVE_POP'])
+        representation = confObjList[confObj]['PARAMETERS']['REPRESENTATION']
+        runs = confObjList[confObj]['RUNS']
+        x = confObjList[confObj]['NODES']['X']
+        y = confObjList[confObj]['NODES']['Y']
+        [(analyseRun(run), heatmap(run) ,analyseBestPath(run, representation, x,y)) for run in runs]
 
     return True
 
