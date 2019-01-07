@@ -36,7 +36,7 @@ def _swap3opt(path, a, c, e):
 	return sol
 
 # This function improves a single tsp path in path representation by removing local loops up to pathlength 3. 
-def tsp_localLoops(path, Dist, maxLoop=3):
+def tsp_localLoops(path, Dist, maxLoop=25):
 	ncities = len(path)
 	maxlen = min(maxLoop, ncities//2)
 	for loopLength in range(1, maxlen):
